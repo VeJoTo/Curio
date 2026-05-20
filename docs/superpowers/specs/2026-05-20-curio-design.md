@@ -3,7 +3,7 @@
 **Status:** Approved · ready for implementation planning
 **Author:** vera@canuto.no
 **Date:** 2026-05-20
-**Repo:** github.com/<owner>/Curio (to be created)
+**Repo:** https://github.com/VeJoTo/Curio
 
 ---
 
