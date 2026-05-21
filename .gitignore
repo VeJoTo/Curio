@@ -1,1 +1,33 @@
+# OS / editor
+.DS_Store
+.idea/
+.vscode/
+*.swp
+
+# Node
+node_modules/
+*.log
+.pnpm-store/
+.pnpm-debug.log*
+
+# Build artefacts
+dist/
+build/
+.tsbuildinfo
+*.tsbuildinfo
+.expo/
+.expo-shared/
+.wrangler/
+
+# Env
+.env
+.env.local
+.env.*.local
+!.env.example
+
+# Authoring work-in-progress (per spec §8)
+authoring/drafts/
+authoring/assets/
+
+# Brainstorming mockups (kept local)
 .superpowers/
