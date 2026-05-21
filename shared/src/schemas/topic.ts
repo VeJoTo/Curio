@@ -17,6 +17,7 @@ export const ChoiceSchema = z.object({
   text: z.string().min(1),
   isCorrect: z.boolean(),
 });
+export type Choice = z.infer<typeof ChoiceSchema>;
 
 export const QuestionSchema = z.object({
   prompt: z.string().min(1),
@@ -31,7 +32,7 @@ export const QuestionSchema = z.object({
 export type Question = z.infer<typeof QuestionSchema>;
 
 export const TopicSchema = z.object({
-  slug: z.string().min(1).regex(/^[a-z0-9-]+$/),
+  slug: z.string().min(1).regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/),
   title: z.string().min(1).max(120),
   deck: z.string().min(1).max(280),
   categorySlug: z.string().min(1),
@@ -44,6 +45,6 @@ export const TopicSchema = z.object({
   scenesDeep: z.array(SceneSchema).min(10).max(14),
   quizQuick: z.array(QuestionSchema).length(3),
   quizDeep: z.array(QuestionSchema).min(5).max(7),
-  sources: z.array(z.string().url()),
+  sources: z.array(z.string().url()).min(1),
 });
 export type Topic = z.infer<typeof TopicSchema>;

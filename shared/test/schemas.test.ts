@@ -108,4 +108,19 @@ describe('TopicSchema', () => {
     const result = TopicSchema.safeParse(bad);
     expect(result.success).toBe(false);
   });
+
+  it('rejects a slug with a leading dash', () => {
+    const result = TopicSchema.safeParse({ ...validTopic, slug: '-bad' });
+    expect(result.success).toBe(false);
+  });
+
+  it('rejects a slug with uppercase letters', () => {
+    const result = TopicSchema.safeParse({ ...validTopic, slug: 'Bad-Slug' });
+    expect(result.success).toBe(false);
+  });
+
+  it('rejects an empty sources array', () => {
+    const result = TopicSchema.safeParse({ ...validTopic, sources: [] });
+    expect(result.success).toBe(false);
+  });
 });
