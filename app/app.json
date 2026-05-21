@@ -1,0 +1,15 @@
+{
+  "expo": {
+    "name": "Curio",
+    "slug": "curio",
+    "scheme": "curio",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "newArchEnabled": true,
+    "ios": { "supportsTablet": false, "bundleIdentifier": "no.canuto.curio" },
+    "android": { "package": "no.canuto.curio" },
+    "plugins": ["expo-router"],
+    "experiments": { "typedRoutes": true }
+  }
+}

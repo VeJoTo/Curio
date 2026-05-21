@@ -1,0 +1,20 @@
+{
+  "extends": "expo/tsconfig.base",
+  "compilerOptions": {
+    "strict": true,
+    "paths": {
+      "@curio/shared": [
+        "../shared/src/index.ts"
+      ],
+      "@curio/shared/*": [
+        "../shared/src/*"
+      ]
+    }
+  },
+  "include": [
+    "app/**/*",
+    "index.ts",
+    ".expo/types/**/*.ts",
+    "expo-env.d.ts"
+  ]
+}
