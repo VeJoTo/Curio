@@ -142,6 +142,16 @@ describe('CategorySchema', () => {
     const result = CategorySchema.safeParse({ slug: 'x', name: 'X', colorToken: 'magenta' });
     expect(result.success).toBe(false);
   });
+
+  it('rejects a slug with a leading dash', () => {
+    const result = CategorySchema.safeParse({ slug: '-x', name: 'X', colorToken: 'teal' });
+    expect(result.success).toBe(false);
+  });
+
+  it('rejects an uppercase slug', () => {
+    const result = CategorySchema.safeParse({ slug: 'EARTH', name: 'Earth', colorToken: 'teal' });
+    expect(result.success).toBe(false);
+  });
 });
 
 describe('ProfileSchema', () => {
@@ -172,6 +182,12 @@ describe('ProfileSchema', () => {
     const { name: _, ...withoutName } = validProfile;
     expect(ProfileSchema.safeParse(withoutName).success).toBe(true);
   });
+
+  it('accepts up to 12 interests but rejects 13', () => {
+    const twelve = Array.from({ length: 12 }, (_, i) => `tag-${i}`);
+    expect(ProfileSchema.safeParse({ ...validProfile, interests: twelve }).success).toBe(true);
+    expect(ProfileSchema.safeParse({ ...validProfile, interests: [...twelve, 'tag-12'] }).success).toBe(false);
+  });
 });
 
 describe('DeviceSchema', () => {
@@ -192,5 +208,10 @@ describe('DeviceSchema', () => {
 
   it('rejects malformed push token', () => {
     expect(DeviceSchema.safeParse({ ...validDevice, pushToken: 'fcm-xyz' }).success).toBe(false);
+  });
+
+  it('rejects a device row with missing prefs', () => {
+    const { prefs: _, ...withoutPrefs } = validDevice;
+    expect(DeviceSchema.safeParse(withoutPrefs).success).toBe(false);
   });
 });

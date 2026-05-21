@@ -1,14 +1,13 @@
 import { z } from 'zod';
+import { HHmmSchema, DepthSchema } from './_primitives.js';
 
-const HHmm = z.string().regex(/^([01]\d|2[0-3]):[0-5]\d$/);
-const Depth = z.enum(['quick', 'deep']);
 const ExpoPushToken = z.string().regex(/^Expo(nent)?PushToken\[[^\]]+\]$/);
 
 export const DevicePrefsSchema = z.object({
   categories: z.array(z.string().min(1)).min(1),
-  localTime: HHmm,
+  localTime: HHmmSchema,
   tz: z.string().min(1),
-  defaultDepth: Depth,
+  defaultDepth: DepthSchema,
 });
 
 export const DeviceSchema = z.object({
