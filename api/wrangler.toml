@@ -1,0 +1,6 @@
+name = "curio-api"
+main = "src/index.ts"
+compatibility_date = "2024-10-01"
+compatibility_flags = ["nodejs_compat"]
+
+# D1 and KV bindings will be added in the API plan (Plan 4).
