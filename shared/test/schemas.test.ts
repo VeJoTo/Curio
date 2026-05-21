@@ -1,5 +1,8 @@
 import { describe, it, expect } from 'vitest';
 import { TopicSchema, type Topic } from '../src/schemas/topic.js';
+import { CategorySchema } from '../src/schemas/category.js';
+import { ProfileSchema, type Profile } from '../src/schemas/profile.js';
+import { DeviceSchema, type Device } from '../src/schemas/device.js';
 
 describe('TopicSchema', () => {
   const validTopic: Topic = {
@@ -122,5 +125,72 @@ describe('TopicSchema', () => {
   it('rejects an empty sources array', () => {
     const result = TopicSchema.safeParse({ ...validTopic, sources: [] });
     expect(result.success).toBe(false);
+  });
+});
+
+describe('CategorySchema', () => {
+  it('parses a valid category', () => {
+    const result = CategorySchema.safeParse({
+      slug: 'earth-and-sky',
+      name: 'Earth & Sky',
+      colorToken: 'teal',
+    });
+    expect(result.success).toBe(true);
+  });
+
+  it('rejects an unknown colorToken', () => {
+    const result = CategorySchema.safeParse({ slug: 'x', name: 'X', colorToken: 'magenta' });
+    expect(result.success).toBe(false);
+  });
+});
+
+describe('ProfileSchema', () => {
+  const validProfile: Profile = {
+    deviceId: 'd1a2b3c4-1111-2222-3333-444455556666',
+    name: 'Vera',
+    avatarKey: 'avatar-04',
+    ageBand: '18-24',
+    interests: ['earth-and-sky', 'biology'],
+    dailyTime: '08:00',
+    defaultDepth: 'quick',
+    notifPermission: 'granted',
+  };
+
+  it('parses a valid profile', () => {
+    expect(ProfileSchema.safeParse(validProfile).success).toBe(true);
+  });
+
+  it('rejects dailyTime in 12h format', () => {
+    expect(ProfileSchema.safeParse({ ...validProfile, dailyTime: '8:00 AM' }).success).toBe(false);
+  });
+
+  it('rejects empty interests', () => {
+    expect(ProfileSchema.safeParse({ ...validProfile, interests: [] }).success).toBe(false);
+  });
+
+  it('allows missing name (skip on onboarding 1.2)', () => {
+    const { name: _, ...withoutName } = validProfile;
+    expect(ProfileSchema.safeParse(withoutName).success).toBe(true);
+  });
+});
+
+describe('DeviceSchema', () => {
+  const validDevice: Device = {
+    id: 'd1a2b3c4-1111-2222-3333-444455556666',
+    pushToken: 'ExponentPushToken[xxxxxxxx]',
+    prefs: {
+      categories: ['earth-and-sky'],
+      localTime: '08:00',
+      tz: 'Europe/Oslo',
+      defaultDepth: 'quick',
+    },
+  };
+
+  it('parses a valid device row', () => {
+    expect(DeviceSchema.safeParse(validDevice).success).toBe(true);
+  });
+
+  it('rejects malformed push token', () => {
+    expect(DeviceSchema.safeParse({ ...validDevice, pushToken: 'fcm-xyz' }).success).toBe(false);
   });
 });
