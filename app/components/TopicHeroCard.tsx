@@ -14,10 +14,11 @@ export type Depth = 'quick' | 'deep';
 interface TopicHeroCardProps {
   topic: Topic;
   onExplore: (depth: Depth) => void;
+  initialDepth?: Depth;
 }
 
-export function TopicHeroCard({ topic, onExplore }: TopicHeroCardProps) {
-  const [depth, setDepth] = useState<Depth>('quick');
+export function TopicHeroCard({ topic, onExplore, initialDepth = 'quick' }: TopicHeroCardProps) {
+  const [depth, setDepth] = useState<Depth>(initialDepth);
 
   const sceneCount = depth === 'quick' ? topic.scenesQuick.length : topic.scenesDeep.length;
   const questionCount = depth === 'quick' ? topic.quizQuick.length : topic.quizDeep.length;

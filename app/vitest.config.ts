@@ -8,7 +8,12 @@ export default defineConfig({
     },
   },
   test: {
-    include: ['theme/**/*.test.ts', 'data/**/*.test.ts', 'onboarding/**/*.test.ts'],
+    include: [
+      'theme/**/*.test.ts',
+      'data/**/*.test.ts',
+      'onboarding/**/*.test.ts',
+      'today/**/*.test.ts',
+    ],
     environment: 'node',
   },
 });

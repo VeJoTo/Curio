@@ -1,12 +1,14 @@
+import type { Profile } from '@curio/shared';
 import { Redirect, useRouter } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { ActivityIndicator, SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
-import { IconButton, Text, TopicHeroCard } from '../components';
+import { Avatar, Text, TopicHeroCard } from '../components';
 import type { Depth } from '../components/TopicHeroCard';
 import { todayTopic } from '../data/topics';
 import { Reveal } from '../motion';
 import { getProfile } from '../storage/profile';
 import { theme } from '../theme';
+import { greetingLine } from '../today/greeting';
 
 type GateState = 'loading' | 'onboard' | 'ready';
 
@@ -14,12 +16,14 @@ export default function Today() {
   const router = useRouter();
   const topic = todayTopic();
   const [gate, setGate] = useState<GateState>('loading');
+  const [profile, setProfile] = useState<Profile | null>(null);
 
   useEffect(() => {
     let mounted = true;
-    getProfile().then((profile) => {
+    getProfile().then((p) => {
       if (mounted) {
-        setGate(profile ? 'ready' : 'onboard');
+        setProfile(p);
+        setGate(p ? 'ready' : 'onboard');
       }
     });
     return () => {
@@ -42,17 +46,26 @@ export default function Today() {
     router.push({ pathname: '/topic/[slug]', params: { slug: topic.slug, depth } });
   };
 
+  const greeting = profile ? greetingLine(profile.name) : null;
+
   return (
     <SafeAreaView style={styles.screen}>
       <View style={styles.header}>
-        <Text variant="meta" color="inkSoft">
-          Today
-        </Text>
-        <IconButton icon="👤" accessibilityLabel="Profile" onPress={() => {}} />
+        <View style={styles.headerText}>
+          <Text variant="meta" color="inkSoft">
+            Today
+          </Text>
+          {greeting ? (
+            <Text variant="title" color="ink">
+              {greeting}
+            </Text>
+          ) : null}
+        </View>
+        {profile ? <Avatar avatarKey={profile.avatarKey} size="sm" /> : null}
       </View>
       <ScrollView contentContainerStyle={styles.body}>
         <Reveal>
-          <TopicHeroCard topic={topic} onExplore={onExplore} />
+          <TopicHeroCard topic={topic} onExplore={onExplore} initialDepth={profile?.defaultDepth} />
         </Reveal>
       </ScrollView>
     </SafeAreaView>
@@ -62,6 +75,7 @@ export default function Today() {
 const styles = StyleSheet.create({
   screen: { flex: 1, backgroundColor: theme.color.cream },
   center: { alignItems: 'center', justifyContent: 'center' },
+  headerText: { flex: 1 },
   header: {
     flexDirection: 'row',
     alignItems: 'center',
