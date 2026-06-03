@@ -12,6 +12,7 @@
     "theme/**/*",
     "components/**/*",
     "hooks/**/*",
+    "motion/**/*",
     "index.ts",
     "expo-env.d.ts",
     ".expo/types/**/*.ts"
