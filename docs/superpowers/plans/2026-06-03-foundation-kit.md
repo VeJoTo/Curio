@@ -136,9 +136,19 @@ Replace the file with:
       "@curio/shared/*": ["../shared/src/*"]
     }
   },
-  "include": ["app/**/*", "theme/**/*", "components/**/*", "hooks/**/*", "index.ts"]
+  "include": [
+    "app/**/*",
+    "theme/**/*",
+    "components/**/*",
+    "hooks/**/*",
+    "index.ts",
+    "expo-env.d.ts",
+    ".expo/types/**/*.ts"
+  ]
 }
 ```
+
+> Keep `expo-env.d.ts` (Expo global types) and `.expo/types/**/*.ts` (generated `typedRoutes` augmentation) in `include` — dropping them silently disables typed-route checking, so `router.push('/gallery')` would accept any string.
 
 - [ ] **Step 7: Verify install + typecheck**
 
