@@ -257,6 +257,8 @@ Expected: FAIL — cannot resolve `./index`.
 - [ ] **Step 3: Write `app/theme/tokens.ts`** (pure data — no value import of `react-native`)
 
 ```ts
+import type { ViewStyle } from 'react-native';
+
 // Geometric Clay tokens — transcribed from the design spec §6.
 export const color = {
   cream: '#FBF6EA',
@@ -302,7 +304,11 @@ export const borderWidth = 1.5;
 // Clay surface shadow. RN cannot do inset shadows natively, so the inner
 // highlight is approximated by the 1.5px ink border + light card surface;
 // this is the outer drop. Applied per-platform by components via Platform.select.
-export const shadow = {
+// Typed as ViewStyle (not `as const`) so the two differently-shaped platform
+// values unify to a single `T` and `Platform.select(shadow.clay)` resolves.
+type ShadowSpec = { ios: ViewStyle; android: ViewStyle };
+
+export const shadow: { clay: ShadowSpec; pressed: ShadowSpec } = {
   clay: {
     ios: {
       shadowColor: color.ink,
@@ -321,7 +327,7 @@ export const shadow = {
     },
     android: { elevation: 2 },
   },
-} as const;
+};
 
 export const motion = {
   durEnter: 220,
