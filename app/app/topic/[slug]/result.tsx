@@ -7,8 +7,9 @@ import { theme } from '../../../theme';
 
 export default function Result() {
   const router = useRouter();
-  const { slug, score, total } = useLocalSearchParams<{
+  const { slug, depth, score, total } = useLocalSearchParams<{
     slug: string;
+    depth?: string;
     score?: string;
     total?: string;
   }>();
@@ -50,7 +51,10 @@ export default function Result() {
             label="↺ Read it again"
             variant="ghost"
             onPress={() =>
-              router.replace({ pathname: '/topic/[slug]', params: { slug: slug ?? '' } })
+              router.replace({
+                pathname: '/topic/[slug]',
+                params: { slug: slug ?? '', depth: depth ?? 'quick' },
+              })
             }
             style={styles.cta}
           />
