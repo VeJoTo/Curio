@@ -1,5 +1,5 @@
 import { Pressable, StyleSheet, View } from 'react-native';
-import { AVATAR_KEYS, Avatar, ClayButton, Text } from '../../components';
+import { AVATAR_KEYS, AVATAR_NAMES, Avatar, ClayButton, Text } from '../../components';
 import { theme } from '../../theme';
 import type { StepProps } from '../types';
 
@@ -14,8 +14,9 @@ export function AvatarStep({ draft, patch, next }: StepProps) {
           <Pressable
             key={key}
             onPress={() => patch({ avatarKey: key })}
+            accessible
             accessibilityRole="button"
-            accessibilityLabel={`Choose ${key}`}
+            accessibilityLabel={`Choose ${AVATAR_NAMES[key] ?? key}`}
             accessibilityState={{ selected: draft.avatarKey === key }}
             style={[styles.cell, draft.avatarKey === key ? styles.selected : null]}
           >

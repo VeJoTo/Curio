@@ -1,5 +1,5 @@
 export { AnswerChoice } from './AnswerChoice';
-export { Avatar, AVATAR_KEYS } from './Avatar';
+export { Avatar, AVATAR_KEYS, AVATAR_NAMES } from './Avatar';
 export { ClayButton } from './ClayButton';
 export { ClayCard } from './ClayCard';
 export { IconButton } from './IconButton';

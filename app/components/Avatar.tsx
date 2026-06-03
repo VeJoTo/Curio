@@ -22,6 +22,11 @@ const FACES: Record<string, { glyph: string; tint: string; name: string }> = {
 // Ordered list of selectable avatar keys (for the onboarding picker).
 export const AVATAR_KEYS = Object.keys(FACES);
 
+// Human-readable names per key (for accessibility labels in the picker).
+export const AVATAR_NAMES: Record<string, string> = Object.fromEntries(
+  Object.entries(FACES).map(([key, face]) => [key, face.name]),
+);
+
 const DIM: Record<Size, number> = { sm: 36, md: 48, lg: 72 };
 
 export function Avatar({ avatarKey, size = 'md' }: AvatarProps) {
