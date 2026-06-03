@@ -45,9 +45,15 @@ export default function Onboarding() {
     patch: (patch) => dispatch({ type: 'patch', patch }),
     next: () => dispatch({ type: 'next' }),
     finish: async () => {
-      const deviceId = await getDeviceId();
-      await saveProfile(buildProfile(state.draft, deviceId));
-      router.replace('/');
+      // Guarded so a buildProfile/save failure surfaces as a log rather than an
+      // unhandled promise rejection (onPress fires this without awaiting).
+      try {
+        const deviceId = await getDeviceId();
+        await saveProfile(buildProfile(state.draft, deviceId));
+        router.replace('/');
+      } catch (err) {
+        console.error('onboarding finish failed', err);
+      }
     },
   };
 
