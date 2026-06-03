@@ -1,3 +1,4 @@
+export { AnswerChoice } from './AnswerChoice';
 export { Avatar } from './Avatar';
 export { ClayButton } from './ClayButton';
 export { ClayCard } from './ClayCard';
