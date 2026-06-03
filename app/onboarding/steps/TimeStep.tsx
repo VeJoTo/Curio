@@ -45,7 +45,7 @@ export function TimeStep({ draft, patch, next }: StepProps) {
           <IconButton
             icon="−"
             accessibilityLabel="Earlier minutes"
-            onPress={() => setMinute((m) => (m === 0 ? 30 : 0))}
+            onPress={() => setMinute((m) => (m + 45) % 60)}
           />
           <Text variant="meta" color="inkSoft">
             minutes
@@ -53,7 +53,7 @@ export function TimeStep({ draft, patch, next }: StepProps) {
           <IconButton
             icon="+"
             accessibilityLabel="Later minutes"
-            onPress={() => setMinute((m) => (m === 0 ? 30 : 0))}
+            onPress={() => setMinute((m) => (m + 15) % 60)}
           />
         </View>
         <ClayButton
