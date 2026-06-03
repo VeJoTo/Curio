@@ -43,7 +43,9 @@ describe('isValidDraft', () => {
 
   it('is false when interests are out of the 3-7 range', () => {
     expect(isValidDraft({ ...base(), interests: ['a', 'b'] })).toBe(false);
-    expect(isValidDraft({ ...base(), interests: ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'] })).toBe(false);
+    expect(isValidDraft({ ...base(), interests: ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'] })).toBe(
+      false,
+    );
   });
 
   it('does not depend on name (name is optional)', () => {
