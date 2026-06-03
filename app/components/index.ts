@@ -12,4 +12,5 @@ export { ScoreCard } from './ScoreCard';
 export { SegmentedToggle } from './SegmentedToggle';
 export { Text } from './Text';
 export { TextField } from './TextField';
+export { TimePicker } from './TimePicker';
 export { TopicHeroCard } from './TopicHeroCard';
