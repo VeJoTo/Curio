@@ -952,14 +952,11 @@ export function ProgressDots({ count, index }: ProgressDotsProps) {
         const active = i === index;
         const done = i < index;
         return (
-          // biome-ignore lint/suspicious/noArrayIndexKey: dots are positional and never reorder
           <View
+            // biome-ignore lint/suspicious/noArrayIndexKey: dots are positional and never reorder
+            // (placed directly before `key`, not before `<View`, or Biome reports it unused)
             key={i}
-            style={[
-              styles.dot,
-              active ? styles.active : null,
-              done ? styles.done : null,
-            ]}
+            style={[styles.dot, active ? styles.active : null, done ? styles.done : null]}
           />
         );
       })}
