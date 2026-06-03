@@ -1,5 +1,6 @@
 export { AnswerChoice } from './AnswerChoice';
 export { Avatar, AVATAR_KEYS, AVATAR_NAMES } from './Avatar';
+export { AvatarPicker } from './AvatarPicker';
 export { ClayButton } from './ClayButton';
 export { ClayCard } from './ClayCard';
 export { IconButton } from './IconButton';

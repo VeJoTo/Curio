@@ -1,5 +1,5 @@
-import { Pressable, StyleSheet, View } from 'react-native';
-import { AVATAR_KEYS, AVATAR_NAMES, Avatar, ClayButton, Text } from '../../components';
+import { StyleSheet, View } from 'react-native';
+import { AvatarPicker, ClayButton, Text } from '../../components';
 import { theme } from '../../theme';
 import type { StepProps } from '../types';
 
@@ -9,21 +9,7 @@ export function AvatarStep({ draft, patch, next }: StepProps) {
       <Text variant="title" color="ink">
         Pick a face
       </Text>
-      <View style={styles.grid}>
-        {AVATAR_KEYS.map((key) => (
-          <Pressable
-            key={key}
-            onPress={() => patch({ avatarKey: key })}
-            accessible
-            accessibilityRole="button"
-            accessibilityLabel={`Choose ${AVATAR_NAMES[key] ?? key}`}
-            accessibilityState={{ selected: draft.avatarKey === key }}
-            style={[styles.cell, draft.avatarKey === key ? styles.selected : null]}
-          >
-            <Avatar avatarKey={key} size="lg" />
-          </Pressable>
-        ))}
-      </View>
+      <AvatarPicker value={draft.avatarKey} onChange={(key) => patch({ avatarKey: key })} />
       <ClayButton
         label="Next →"
         variant="coral"
@@ -37,8 +23,5 @@ export function AvatarStep({ draft, patch, next }: StepProps) {
 
 const styles = StyleSheet.create({
   wrap: { gap: theme.space.md },
-  grid: { flexDirection: 'row', flexWrap: 'wrap', gap: theme.space.md, justifyContent: 'center' },
-  cell: { borderRadius: theme.radius.md, padding: 4 },
-  selected: { borderWidth: 2, borderColor: theme.color.indigo },
   cta: { alignSelf: 'stretch', marginTop: theme.space.md },
 });
