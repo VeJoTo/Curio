@@ -28,11 +28,13 @@ export function getDeviceId(): Promise<string> {
 }
 
 export async function getProfile(): Promise<Profile | null> {
-  const raw = await AsyncStorage.getItem(PROFILE_KEY);
-  if (!raw) {
-    return null;
-  }
+  // Never rejects: a storage read error, malformed JSON, or schema mismatch
+  // all resolve to null (the gate treats null as "no profile").
   try {
+    const raw = await AsyncStorage.getItem(PROFILE_KEY);
+    if (!raw) {
+      return null;
+    }
     const result = ProfileSchema.safeParse(JSON.parse(raw));
     return result.success ? result.data : null;
   } catch {
