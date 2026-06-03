@@ -4,6 +4,7 @@ export { ClayCard } from './ClayCard';
 export { IconButton } from './IconButton';
 export { Pill } from './Pill';
 export { ProgressDots } from './ProgressDots';
+export { SceneFrame } from './SceneFrame';
 export { ScreenHeader } from './ScreenHeader';
 export { SegmentedToggle } from './SegmentedToggle';
 export { Text } from './Text';
