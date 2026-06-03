@@ -18,7 +18,7 @@ config.resolver.nodeModulesPaths = [
 // and comes from inside the workspace, retry it with a `.ts` extension instead.
 config.resolver.resolveRequest = (context, moduleName, platform) => {
   if (moduleName.endsWith('.js')) {
-    const tsName = moduleName.slice(0, -3) + '.ts';
+    const tsName = `${moduleName.slice(0, -3)}.ts`;
     try {
       return context.resolveRequest(context, tsName, platform);
     } catch (_) {

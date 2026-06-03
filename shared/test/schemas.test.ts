@@ -1,8 +1,8 @@
-import { describe, it, expect } from 'vitest';
-import { TopicSchema, type Topic } from '../src/schemas/topic.js';
+import { describe, expect, it } from 'vitest';
 import { CategorySchema } from '../src/schemas/category.js';
-import { ProfileSchema, type Profile } from '../src/schemas/profile.js';
-import { DeviceSchema, type Device } from '../src/schemas/device.js';
+import { type Device, DeviceSchema } from '../src/schemas/device.js';
+import { type Profile, ProfileSchema } from '../src/schemas/profile.js';
+import { type Topic, TopicSchema } from '../src/schemas/topic.js';
 
 describe('TopicSchema', () => {
   const validTopic: Topic = {
@@ -15,60 +15,162 @@ describe('TopicSchema', () => {
     publishedAt: '2026-05-20T08:00:00.000Z',
     heroImageUrl: 'https://cdn.sanity.io/.../hero.webp',
     scenesQuick: [
-      { id: 'q1', imageUrl: 'https://cdn.sanity.io/.../q1.webp', caption: 'It starts at the sun.', motion: 'fade' },
-      { id: 'q2', imageUrl: 'https://cdn.sanity.io/.../q2.webp', caption: 'It starts at the sun.', motion: 'fade' },
-      { id: 'q3', imageUrl: 'https://cdn.sanity.io/.../q3.webp', caption: 'It starts at the sun.', motion: 'fade' },
-      { id: 'q4', imageUrl: 'https://cdn.sanity.io/.../q4.webp', caption: 'It starts at the sun.', motion: 'fade' }
+      {
+        id: 'q1',
+        imageUrl: 'https://cdn.sanity.io/.../q1.webp',
+        caption: 'It starts at the sun.',
+        motion: 'fade',
+      },
+      {
+        id: 'q2',
+        imageUrl: 'https://cdn.sanity.io/.../q2.webp',
+        caption: 'It starts at the sun.',
+        motion: 'fade',
+      },
+      {
+        id: 'q3',
+        imageUrl: 'https://cdn.sanity.io/.../q3.webp',
+        caption: 'It starts at the sun.',
+        motion: 'fade',
+      },
+      {
+        id: 'q4',
+        imageUrl: 'https://cdn.sanity.io/.../q4.webp',
+        caption: 'It starts at the sun.',
+        motion: 'fade',
+      },
     ],
     scenesDeep: [
-      { id: 'd1', imageUrl: 'https://cdn.sanity.io/.../d1.webp', caption: 'It starts at the sun.', motion: 'fade' },
-      { id: 'd2', imageUrl: 'https://cdn.sanity.io/.../d2.webp', caption: 'It starts at the sun.', motion: 'fade' },
-      { id: 'd3', imageUrl: 'https://cdn.sanity.io/.../d3.webp', caption: 'It starts at the sun.', motion: 'fade' },
-      { id: 'd4', imageUrl: 'https://cdn.sanity.io/.../d4.webp', caption: 'It starts at the sun.', motion: 'fade' },
-      { id: 'd5', imageUrl: 'https://cdn.sanity.io/.../d5.webp', caption: 'It starts at the sun.', motion: 'fade' },
-      { id: 'd6', imageUrl: 'https://cdn.sanity.io/.../d6.webp', caption: 'It starts at the sun.', motion: 'fade' },
-      { id: 'd7', imageUrl: 'https://cdn.sanity.io/.../d7.webp', caption: 'It starts at the sun.', motion: 'fade' },
-      { id: 'd8', imageUrl: 'https://cdn.sanity.io/.../d8.webp', caption: 'It starts at the sun.', motion: 'fade' },
-      { id: 'd9', imageUrl: 'https://cdn.sanity.io/.../d9.webp', caption: 'It starts at the sun.', motion: 'fade' },
-      { id: 'd10', imageUrl: 'https://cdn.sanity.io/.../d10.webp', caption: 'It starts at the sun.', motion: 'fade' }
+      {
+        id: 'd1',
+        imageUrl: 'https://cdn.sanity.io/.../d1.webp',
+        caption: 'It starts at the sun.',
+        motion: 'fade',
+      },
+      {
+        id: 'd2',
+        imageUrl: 'https://cdn.sanity.io/.../d2.webp',
+        caption: 'It starts at the sun.',
+        motion: 'fade',
+      },
+      {
+        id: 'd3',
+        imageUrl: 'https://cdn.sanity.io/.../d3.webp',
+        caption: 'It starts at the sun.',
+        motion: 'fade',
+      },
+      {
+        id: 'd4',
+        imageUrl: 'https://cdn.sanity.io/.../d4.webp',
+        caption: 'It starts at the sun.',
+        motion: 'fade',
+      },
+      {
+        id: 'd5',
+        imageUrl: 'https://cdn.sanity.io/.../d5.webp',
+        caption: 'It starts at the sun.',
+        motion: 'fade',
+      },
+      {
+        id: 'd6',
+        imageUrl: 'https://cdn.sanity.io/.../d6.webp',
+        caption: 'It starts at the sun.',
+        motion: 'fade',
+      },
+      {
+        id: 'd7',
+        imageUrl: 'https://cdn.sanity.io/.../d7.webp',
+        caption: 'It starts at the sun.',
+        motion: 'fade',
+      },
+      {
+        id: 'd8',
+        imageUrl: 'https://cdn.sanity.io/.../d8.webp',
+        caption: 'It starts at the sun.',
+        motion: 'fade',
+      },
+      {
+        id: 'd9',
+        imageUrl: 'https://cdn.sanity.io/.../d9.webp',
+        caption: 'It starts at the sun.',
+        motion: 'fade',
+      },
+      {
+        id: 'd10',
+        imageUrl: 'https://cdn.sanity.io/.../d10.webp',
+        caption: 'It starts at the sun.',
+        motion: 'fade',
+      },
     ],
     quizQuick: [
-      { prompt: 'What causes the lights?', choices: [
-        { text: 'Solar wind hitting the atmosphere', isCorrect: true },
-        { text: 'Reflected moonlight', isCorrect: false }
-      ], explanation: 'Charged solar particles excite atmospheric gases.' },
-      { prompt: 'What causes the lights?', choices: [
-        { text: 'Solar wind hitting the atmosphere', isCorrect: true },
-        { text: 'Reflected moonlight', isCorrect: false }
-      ], explanation: 'Charged solar particles excite atmospheric gases.' },
-      { prompt: 'What causes the lights?', choices: [
-        { text: 'Solar wind hitting the atmosphere', isCorrect: true },
-        { text: 'Reflected moonlight', isCorrect: false }
-      ], explanation: 'Charged solar particles excite atmospheric gases.' }
+      {
+        prompt: 'What causes the lights?',
+        choices: [
+          { text: 'Solar wind hitting the atmosphere', isCorrect: true },
+          { text: 'Reflected moonlight', isCorrect: false },
+        ],
+        explanation: 'Charged solar particles excite atmospheric gases.',
+      },
+      {
+        prompt: 'What causes the lights?',
+        choices: [
+          { text: 'Solar wind hitting the atmosphere', isCorrect: true },
+          { text: 'Reflected moonlight', isCorrect: false },
+        ],
+        explanation: 'Charged solar particles excite atmospheric gases.',
+      },
+      {
+        prompt: 'What causes the lights?',
+        choices: [
+          { text: 'Solar wind hitting the atmosphere', isCorrect: true },
+          { text: 'Reflected moonlight', isCorrect: false },
+        ],
+        explanation: 'Charged solar particles excite atmospheric gases.',
+      },
     ],
     quizDeep: [
-      { prompt: 'What causes the lights?', choices: [
-        { text: 'Solar wind hitting the atmosphere', isCorrect: true },
-        { text: 'Reflected moonlight', isCorrect: false }
-      ], explanation: 'Charged solar particles excite atmospheric gases.' },
-      { prompt: 'What causes the lights?', choices: [
-        { text: 'Solar wind hitting the atmosphere', isCorrect: true },
-        { text: 'Reflected moonlight', isCorrect: false }
-      ], explanation: 'Charged solar particles excite atmospheric gases.' },
-      { prompt: 'What causes the lights?', choices: [
-        { text: 'Solar wind hitting the atmosphere', isCorrect: true },
-        { text: 'Reflected moonlight', isCorrect: false }
-      ], explanation: 'Charged solar particles excite atmospheric gases.' },
-      { prompt: 'What causes the lights?', choices: [
-        { text: 'Solar wind hitting the atmosphere', isCorrect: true },
-        { text: 'Reflected moonlight', isCorrect: false }
-      ], explanation: 'Charged solar particles excite atmospheric gases.' },
-      { prompt: 'What causes the lights?', choices: [
-        { text: 'Solar wind hitting the atmosphere', isCorrect: true },
-        { text: 'Reflected moonlight', isCorrect: false }
-      ], explanation: 'Charged solar particles excite atmospheric gases.' }
+      {
+        prompt: 'What causes the lights?',
+        choices: [
+          { text: 'Solar wind hitting the atmosphere', isCorrect: true },
+          { text: 'Reflected moonlight', isCorrect: false },
+        ],
+        explanation: 'Charged solar particles excite atmospheric gases.',
+      },
+      {
+        prompt: 'What causes the lights?',
+        choices: [
+          { text: 'Solar wind hitting the atmosphere', isCorrect: true },
+          { text: 'Reflected moonlight', isCorrect: false },
+        ],
+        explanation: 'Charged solar particles excite atmospheric gases.',
+      },
+      {
+        prompt: 'What causes the lights?',
+        choices: [
+          { text: 'Solar wind hitting the atmosphere', isCorrect: true },
+          { text: 'Reflected moonlight', isCorrect: false },
+        ],
+        explanation: 'Charged solar particles excite atmospheric gases.',
+      },
+      {
+        prompt: 'What causes the lights?',
+        choices: [
+          { text: 'Solar wind hitting the atmosphere', isCorrect: true },
+          { text: 'Reflected moonlight', isCorrect: false },
+        ],
+        explanation: 'Charged solar particles excite atmospheric gases.',
+      },
+      {
+        prompt: 'What causes the lights?',
+        choices: [
+          { text: 'Solar wind hitting the atmosphere', isCorrect: true },
+          { text: 'Reflected moonlight', isCorrect: false },
+        ],
+        explanation: 'Charged solar particles excite atmospheric gases.',
+      },
     ],
-    sources: ['https://nasa.gov/.../aurora']
+    sources: ['https://nasa.gov/.../aurora'],
   };
 
   it('parses a valid topic', () => {
@@ -94,19 +196,32 @@ describe('TopicSchema', () => {
   it('requires at least one correct choice', () => {
     const bad = {
       ...validTopic,
-      quizQuick: [{
-        prompt: 'X?',
-        choices: [{ text: 'a', isCorrect: false }, { text: 'b', isCorrect: false }],
-        explanation: 'x'
-      },
-      { prompt: 'What causes the lights?', choices: [
-        { text: 'Solar wind hitting the atmosphere', isCorrect: true },
-        { text: 'Reflected moonlight', isCorrect: false }
-      ], explanation: 'Charged solar particles excite atmospheric gases.' },
-      { prompt: 'What causes the lights?', choices: [
-        { text: 'Solar wind hitting the atmosphere', isCorrect: true },
-        { text: 'Reflected moonlight', isCorrect: false }
-      ], explanation: 'Charged solar particles excite atmospheric gases.' }]
+      quizQuick: [
+        {
+          prompt: 'X?',
+          choices: [
+            { text: 'a', isCorrect: false },
+            { text: 'b', isCorrect: false },
+          ],
+          explanation: 'x',
+        },
+        {
+          prompt: 'What causes the lights?',
+          choices: [
+            { text: 'Solar wind hitting the atmosphere', isCorrect: true },
+            { text: 'Reflected moonlight', isCorrect: false },
+          ],
+          explanation: 'Charged solar particles excite atmospheric gases.',
+        },
+        {
+          prompt: 'What causes the lights?',
+          choices: [
+            { text: 'Solar wind hitting the atmosphere', isCorrect: true },
+            { text: 'Reflected moonlight', isCorrect: false },
+          ],
+          explanation: 'Charged solar particles excite atmospheric gases.',
+        },
+      ],
     };
     const result = TopicSchema.safeParse(bad);
     expect(result.success).toBe(false);
@@ -186,7 +301,9 @@ describe('ProfileSchema', () => {
   it('accepts up to 12 interests but rejects 13', () => {
     const twelve = Array.from({ length: 12 }, (_, i) => `tag-${i}`);
     expect(ProfileSchema.safeParse({ ...validProfile, interests: twelve }).success).toBe(true);
-    expect(ProfileSchema.safeParse({ ...validProfile, interests: [...twelve, 'tag-12'] }).success).toBe(false);
+    expect(
+      ProfileSchema.safeParse({ ...validProfile, interests: [...twelve, 'tag-12'] }).success,
+    ).toBe(false);
   });
 });
 

@@ -4,7 +4,10 @@ import { z } from 'zod';
 export const ColorToken = z.enum(['rose', 'teal', 'mustard', 'indigo', 'coral']);
 
 export const CategorySchema = z.object({
-  slug: z.string().min(1).regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/),
+  slug: z
+    .string()
+    .min(1)
+    .regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/),
   name: z.string().min(1),
   colorToken: ColorToken,
 });

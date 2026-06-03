@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { HHmmSchema, DepthSchema } from './_primitives.js';
+import { DepthSchema, HHmmSchema } from './_primitives.js';
 
 const AgeBand = z.enum(['under-13', '13-17', '18-24', '25-34', '35-44', '45-54', '55+']);
 const NotifPermission = z.enum(['granted', 'denied', 'undetermined']);

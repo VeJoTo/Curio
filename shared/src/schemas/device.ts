@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { HHmmSchema, DepthSchema } from './_primitives.js';
+import { DepthSchema, HHmmSchema } from './_primitives.js';
 
 const ExpoPushToken = z.string().regex(/^Expo(nent)?PushToken\[[^\]]+\]$/);
 
