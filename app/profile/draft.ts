@@ -9,8 +9,8 @@ export interface ProfileDraft {
   defaultDepth: Profile['defaultDepth'];
 }
 
-const MIN_INTERESTS = 3;
-const MAX_INTERESTS = 7;
+export const MIN_INTERESTS = 3;
+export const MAX_INTERESTS = 7;
 
 /** Seed an editable draft from a stored profile (interests cloned so edits don't mutate it). */
 export function draftFromProfile(p: Profile): ProfileDraft {

@@ -17,6 +17,7 @@ import { AGE_BANDS } from '../data/ageBands';
 import { CATEGORIES } from '../data/categories';
 import { Reveal } from '../motion';
 import {
+  MAX_INTERESTS,
   type ProfileDraft,
   draftFromProfile,
   isDirty,
@@ -25,8 +26,6 @@ import {
 } from '../profile/draft';
 import { clearProfile, getProfile, saveProfile } from '../storage/profile';
 import { theme } from '../theme';
-
-const MAX_INTERESTS = 7;
 
 type LoadState =
   | { status: 'loading' }
@@ -195,9 +194,11 @@ export default function ProfileScreen() {
           </ClayCard>
 
           {saveError ? (
-            <Text variant="meta" color="coral" style={styles.error}>
-              Couldn't save. Please try again.
-            </Text>
+            <View accessibilityLiveRegion="polite" style={styles.error}>
+              <Text variant="meta" color="coral">
+                Couldn't save. Please try again.
+              </Text>
+            </View>
           ) : null}
 
           <ClayButton
