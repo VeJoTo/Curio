@@ -1,7 +1,14 @@
 import type { Profile } from '@curio/shared';
 import { Redirect, useRouter } from 'expo-router';
 import { useEffect, useState } from 'react';
-import { ActivityIndicator, SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
+import {
+  ActivityIndicator,
+  Pressable,
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  View,
+} from 'react-native';
 import { Avatar, Text, TopicHeroCard } from '../components';
 import type { Depth } from '../components/TopicHeroCard';
 import { todayTopic } from '../data/topics';
@@ -61,7 +68,15 @@ export default function Today() {
             </Text>
           ) : null}
         </View>
-        {profile ? <Avatar avatarKey={profile.avatarKey} size="sm" /> : null}
+        {profile ? (
+          <Pressable
+            onPress={() => router.push('/profile')}
+            accessibilityRole="button"
+            accessibilityLabel="Profile"
+          >
+            <Avatar avatarKey={profile.avatarKey} size="sm" />
+          </Pressable>
+        ) : null}
       </View>
       <ScrollView contentContainerStyle={styles.body}>
         <Reveal>
