@@ -1,5 +1,6 @@
 export { AnswerChoice } from './AnswerChoice';
 export { Avatar, AVATAR_KEYS, AVATAR_NAMES } from './Avatar';
+export { AvatarPicker } from './AvatarPicker';
 export { ClayButton } from './ClayButton';
 export { ClayCard } from './ClayCard';
 export { IconButton } from './IconButton';
@@ -11,4 +12,5 @@ export { ScoreCard } from './ScoreCard';
 export { SegmentedToggle } from './SegmentedToggle';
 export { Text } from './Text';
 export { TextField } from './TextField';
+export { TimePicker } from './TimePicker';
 export { TopicHeroCard } from './TopicHeroCard';

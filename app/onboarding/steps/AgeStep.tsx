@@ -1,17 +1,8 @@
 import { StyleSheet, View } from 'react-native';
 import { Pill, Text } from '../../components';
+import { AGE_BANDS } from '../../data/ageBands';
 import { theme } from '../../theme';
-import type { AgeBand, StepProps } from '../types';
-
-const BANDS: { value: AgeBand; label: string }[] = [
-  { value: 'under-13', label: 'Under 13' },
-  { value: '13-17', label: '13–17' },
-  { value: '18-24', label: '18–24' },
-  { value: '25-34', label: '25–34' },
-  { value: '35-44', label: '35–44' },
-  { value: '45-54', label: '45–54' },
-  { value: '55+', label: '55+' },
-];
+import type { StepProps } from '../types';
 
 export function AgeStep({ draft, patch, next }: StepProps) {
   return (
@@ -23,7 +14,7 @@ export function AgeStep({ draft, patch, next }: StepProps) {
         Tunes how content is pitched.
       </Text>
       <View style={styles.row}>
-        {BANDS.map((b) => (
+        {AGE_BANDS.map((b) => (
           <Pill
             key={b.value}
             label={b.label}
