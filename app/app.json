@@ -7,9 +7,16 @@
     "orientation": "portrait",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
-    "ios": { "supportsTablet": false, "bundleIdentifier": "no.canuto.curio" },
-    "android": { "package": "no.canuto.curio" },
-    "plugins": ["expo-router"],
-    "experiments": { "typedRoutes": true }
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "no.canuto.curio"
+    },
+    "android": {
+      "package": "no.canuto.curio"
+    },
+    "plugins": ["expo-router", "expo-font"],
+    "experiments": {
+      "typedRoutes": true
+    }
   }
 }

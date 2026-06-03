@@ -7,5 +7,5 @@
       "@curio/shared/*": ["../shared/src/*"]
     }
   },
-  "include": ["app/**/*", "index.ts", ".expo/types/**/*.ts", "expo-env.d.ts"]
+  "include": ["app/**/*", "theme/**/*", "components/**/*", "hooks/**/*", "index.ts"]
 }
