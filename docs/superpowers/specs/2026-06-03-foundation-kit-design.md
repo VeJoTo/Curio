@@ -70,9 +70,9 @@ Lives at `app/theme/` (outside the `app/app/` routes dir so Expo Router ignores 
 **`index.ts`** — exports a single `theme` object composing the above.
 
 **`theme.test.ts`** (Vitest):
-- `ink`-on-`cream` contrast ≥ 11.4:1 (AAA); `coral`-on-`cream` ≥ 4.5:1 (AA).
-- Type scale: body ≥ 16, sizes strictly increasing display > title > heading > body ≥ bodyStrong > meta as appropriate.
-- Token completeness: every `ColorToken` enum member has a `categoryColor` entry; all palette roles present.
+- Contrast (computed WCAG ratios): `ink`-on-`cream` ≥ 11:1 (AAA body); `inkSoft`-on-`cream` ≥ 4.5:1 (AA secondary); white-on-`indigo` ≥ 4.5:1 (AA primary button). Coral is a CTA *fill* with a white bold label and is always paired with an icon/label (never the sole indicator), so its ~3:1 white-on-fill ratio is checked visually in the gallery rather than asserted as body-text contrast.
+- Type scale: `body` fontSize ≥ 16 and lineHeight ÷ fontSize ≥ 1.5; sizes decreasing display > title > heading > body; `bodyStrong` same size as `body`; `meta` < `body`.
+- Token completeness: every category `ColorToken` (`rose|teal|mustard|indigo|coral`) has a `categoryColor` entry; all palette roles present.
 
 ---
 
