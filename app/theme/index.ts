@@ -15,4 +15,4 @@ export const theme = {
 
 export type Theme = typeof theme;
 export type ColorRole = keyof typeof color;
-export type { TypeVariant } from './typography';
+export type { TypeStyle, TypeVariant } from './typography';
