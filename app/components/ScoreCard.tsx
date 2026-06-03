@@ -10,7 +10,7 @@ interface ScoreCardProps {
 }
 
 function message(score: number, total: number): string {
-  if (score === total) {
+  if (total > 0 && score === total) {
     return 'Aurora expert! 🌟';
   }
   if (score / total >= 2 / 3) {
@@ -21,7 +21,7 @@ function message(score: number, total: number): string {
 
 export function ScoreCard({ score, total }: ScoreCardProps) {
   const shown = useCountUp(score);
-  const perfect = score === total;
+  const perfect = total > 0 && score === total;
 
   return (
     <View style={styles.card}>
