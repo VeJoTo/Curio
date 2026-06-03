@@ -50,7 +50,12 @@ export default function Story() {
   return (
     <SafeAreaView style={styles.screen}>
       <View style={styles.header}>
-        <IconButton icon="←" accessibilityLabel="Previous scene" onPress={() => go(index - 1)} />
+        <IconButton
+          icon="←"
+          accessibilityLabel="Previous scene"
+          disabled={index === 0}
+          onPress={() => go(index - 1)}
+        />
         <ProgressDots count={scenes.length} index={index} />
         <IconButton icon="✕" accessibilityLabel="Close" onPress={() => router.dismissAll()} />
       </View>
