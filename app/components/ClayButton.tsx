@@ -1,4 +1,5 @@
 import { Platform, Pressable, StyleSheet } from 'react-native';
+import type { StyleProp, ViewStyle } from 'react-native';
 import Animated from 'react-native-reanimated';
 import { usePressNudge } from '../hooks/usePressNudge';
 import { theme } from '../theme';
@@ -13,6 +14,7 @@ interface ClayButtonProps {
   disabled?: boolean;
   icon?: string;
   iconPosition?: 'leading' | 'trailing';
+  style?: StyleProp<ViewStyle>;
 }
 
 const fill: Record<Variant, string> = {
@@ -28,6 +30,7 @@ export function ClayButton({
   disabled = false,
   icon,
   iconPosition = 'trailing',
+  style,
 }: ClayButtonProps) {
   const { animatedStyle, onPressIn, onPressOut } = usePressNudge();
   const textColor = variant === 'ghost' ? 'ink' : 'surface';
@@ -51,6 +54,7 @@ export function ClayButton({
         style={[
           styles.btn,
           { backgroundColor: fill[variant], opacity: disabled ? 0.4 : 1 },
+          style,
           disabled ? null : animatedStyle,
         ]}
       >

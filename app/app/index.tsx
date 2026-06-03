@@ -1,38 +1,44 @@
 import { useRouter } from 'expo-router';
-import { SafeAreaView, StyleSheet, View } from 'react-native';
-import { ClayButton, ClayCard, Text } from '../components';
+import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
+import { IconButton, Text, TopicHeroCard } from '../components';
+import type { Depth } from '../components/TopicHeroCard';
+import { todayTopic } from '../data/topics';
+import { Reveal } from '../motion';
 import { theme } from '../theme';
 
-export default function Index() {
+export default function Today() {
   const router = useRouter();
+  const topic = todayTopic();
+
+  const onExplore = (depth: Depth) => {
+    router.push({ pathname: '/topic/[slug]', params: { slug: topic.slug, depth } });
+  };
 
   return (
     <SafeAreaView style={styles.screen}>
-      <View style={styles.body}>
-        <ClayCard surface="cream">
-          <Text variant="meta" color="inkSoft">
-            Curio · design system
-          </Text>
-          <Text variant="display" color="ink" style={styles.title}>
-            Geometric Clay
-          </Text>
-          <Text variant="body" color="inkSoft" style={styles.deck}>
-            The component foundation every Curio screen is built from.
-          </Text>
-          <ClayButton
-            label="Open the gallery →"
-            variant="coral"
-            onPress={() => router.push('/gallery')}
-          />
-        </ClayCard>
+      <View style={styles.header}>
+        <Text variant="meta" color="inkSoft">
+          Today
+        </Text>
+        <IconButton icon="👤" accessibilityLabel="Profile" onPress={() => {}} />
       </View>
+      <ScrollView contentContainerStyle={styles.body}>
+        <Reveal>
+          <TopicHeroCard topic={topic} onExplore={onExplore} />
+        </Reveal>
+      </ScrollView>
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   screen: { flex: 1, backgroundColor: theme.color.cream },
-  body: { flex: 1, justifyContent: 'center', padding: theme.space.lg },
-  title: { marginTop: theme.space.xs },
-  deck: { marginTop: theme.space.sm, marginBottom: theme.space.lg },
+  header: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: theme.space.md,
+    paddingTop: theme.space.sm,
+  },
+  body: { padding: theme.space.lg, justifyContent: 'center', flexGrow: 1 },
 });

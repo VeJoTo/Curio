@@ -10,3 +10,4 @@ export { ScreenHeader } from './ScreenHeader';
 export { SegmentedToggle } from './SegmentedToggle';
 export { Text } from './Text';
 export { TextField } from './TextField';
+export { TopicHeroCard } from './TopicHeroCard';
