@@ -7,6 +7,7 @@ export { Pill } from './Pill';
 export { ProgressDots } from './ProgressDots';
 export { SceneFrame } from './SceneFrame';
 export { ScreenHeader } from './ScreenHeader';
+export { ScoreCard } from './ScoreCard';
 export { SegmentedToggle } from './SegmentedToggle';
 export { Text } from './Text';
 export { TextField } from './TextField';
