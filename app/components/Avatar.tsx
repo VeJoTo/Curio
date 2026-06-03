@@ -15,7 +15,12 @@ const FACES: Record<string, { glyph: string; tint: string; name: string }> = {
   'avatar-owl': { glyph: '🦉', tint: theme.color.teal, name: 'Owl' },
   'avatar-bee': { glyph: '🐝', tint: theme.color.mustard, name: 'Bee' },
   'avatar-cat': { glyph: '🐈', tint: theme.color.peach, name: 'Cat' },
+  'avatar-frog': { glyph: '🐸', tint: theme.color.teal, name: 'Frog' },
+  'avatar-butterfly': { glyph: '🦋', tint: theme.color.rose, name: 'Butterfly' },
 };
+
+// Ordered list of selectable avatar keys (for the onboarding picker).
+export const AVATAR_KEYS = Object.keys(FACES);
 
 const DIM: Record<Size, number> = { sm: 36, md: 48, lg: 72 };
 
