@@ -13,6 +13,7 @@ export default defineConfig({
       'data/**/*.test.ts',
       'onboarding/**/*.test.ts',
       'today/**/*.test.ts',
+      'profile/**/*.test.ts',
     ],
     environment: 'node',
   },
