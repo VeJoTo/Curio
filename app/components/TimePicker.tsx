@@ -85,7 +85,16 @@ export function TimePicker({ value, onChange }: TimePickerProps) {
       <ClayButton
         label="Custom…"
         variant="ghost"
-        onPress={() => setCustom(true)}
+        onPress={() => {
+          // Seed the stepper from the current value so editing an existing
+          // time opens on that time (onboarding has no prior value → 08:00).
+          const [h, m] = (value ?? '').split(':').map(Number);
+          if (Number.isInteger(h) && Number.isInteger(m)) {
+            setHour(h);
+            setMinute(m);
+          }
+          setCustom(true);
+        }}
         style={styles.cta}
       />
     </View>
