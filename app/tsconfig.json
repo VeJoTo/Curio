@@ -13,6 +13,8 @@
     "components/**/*",
     "hooks/**/*",
     "motion/**/*",
+    "onboarding/**/*",
+    "storage/**/*",
     "index.ts",
     "expo-env.d.ts",
     ".expo/types/**/*.ts"
