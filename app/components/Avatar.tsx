@@ -10,23 +10,23 @@ interface AvatarProps {
 }
 
 // Placeholder mapping until the real illustrated avatar set ships.
-const FACES: Record<string, { glyph: string; tint: string }> = {
-  'avatar-fox': { glyph: '🦊', tint: theme.color.rose },
-  'avatar-owl': { glyph: '🦉', tint: theme.color.teal },
-  'avatar-bee': { glyph: '🐝', tint: theme.color.mustard },
-  'avatar-cat': { glyph: '🐈', tint: theme.color.peach },
+const FACES: Record<string, { glyph: string; tint: string; name: string }> = {
+  'avatar-fox': { glyph: '🦊', tint: theme.color.rose, name: 'Fox' },
+  'avatar-owl': { glyph: '🦉', tint: theme.color.teal, name: 'Owl' },
+  'avatar-bee': { glyph: '🐝', tint: theme.color.mustard, name: 'Bee' },
+  'avatar-cat': { glyph: '🐈', tint: theme.color.peach, name: 'Cat' },
 };
 
 const DIM: Record<Size, number> = { sm: 36, md: 48, lg: 72 };
 
 export function Avatar({ avatarKey, size = 'md' }: AvatarProps) {
-  const face = FACES[avatarKey] ?? { glyph: '🙂', tint: theme.color.surface };
+  const face = FACES[avatarKey] ?? { glyph: '🙂', tint: theme.color.surface, name: 'Placeholder' };
   const dim = DIM[size];
 
   return (
     <View
       accessibilityRole="image"
-      accessibilityLabel={`Avatar ${avatarKey}`}
+      accessibilityLabel={`${face.name} avatar`}
       style={[styles.box, { width: dim, height: dim, backgroundColor: face.tint }]}
     >
       <Text variant={size === 'lg' ? 'display' : 'heading'} color="ink">

@@ -6,7 +6,6 @@ export const fontFamily = {
   displaySemi: 'Fraunces_600SemiBold',
   body: 'Manrope_400Regular',
   bodyBold: 'Manrope_700Bold',
-  bodyMedium: 'Manrope_500Medium',
   meta: 'JetBrainsMono_500Medium',
 } as const;
 
