@@ -6,7 +6,7 @@ import { randomUUID } from 'expo-crypto';
 const PROFILE_KEY = 'curio.profile';
 const DEVICE_ID_KEY = 'curio.deviceId';
 
-export async function getDeviceId(): Promise<string> {
+async function resolveDeviceId(): Promise<string> {
   const existing = await AsyncStorage.getItem(DEVICE_ID_KEY);
   if (existing) {
     return existing;
@@ -14,6 +14,17 @@ export async function getDeviceId(): Promise<string> {
   const id = randomUUID();
   await AsyncStorage.setItem(DEVICE_ID_KEY, id);
   return id;
+}
+
+// Memoize the in-flight promise so concurrent first-calls can't generate
+// two different UUIDs (the second write would otherwise win).
+let deviceIdPromise: Promise<string> | null = null;
+
+export function getDeviceId(): Promise<string> {
+  if (!deviceIdPromise) {
+    deviceIdPromise = resolveDeviceId();
+  }
+  return deviceIdPromise;
 }
 
 export async function getProfile(): Promise<Profile | null> {
