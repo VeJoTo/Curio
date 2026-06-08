@@ -29,6 +29,15 @@ describe('topic fixture', () => {
     const profile = { interests: ['space'] } as Parameters<typeof todayTopic>[0];
     expect(todayTopic(profile, date).slug).toBe(todayTopic(profile, date).slug);
   });
+
+  it('todayTopic honors the profile interests against the real catalog', () => {
+    const date = new Date(2026, 5, 8);
+    const spaceProfile = { interests: ['space'] } as Parameters<typeof todayTopic>[0];
+    expect(todayTopic(spaceProfile, date).categorySlug).toBe('space');
+
+    const bioProfile = { interests: ['biology'] } as Parameters<typeof todayTopic>[0];
+    expect(todayTopic(bioProfile, date).categorySlug).toBe('biology');
+  });
 });
 
 describe('topic catalog', () => {
