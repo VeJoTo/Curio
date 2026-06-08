@@ -30,6 +30,19 @@ describe('selectDailyTopic', () => {
     expect(picked?.slug).toBe('moon');
   });
 
+  it('rotates among all matched topics across days', () => {
+    const picks = new Set<string>();
+    for (let d = 1; d <= 28; d++) {
+      const picked = selectDailyTopic({
+        interests: ['space', 'art'],
+        date: new Date(2026, 0, d),
+        topics: [a, b, c],
+      });
+      if (picked) picks.add(picked.slug);
+    }
+    expect(picks).toEqual(new Set(['moon', 'mural'])); // both matched topics appear; aurora never
+  });
+
   it('never returns a non-matching topic when matches exist', () => {
     for (let d = 1; d <= 28; d++) {
       const picked = selectDailyTopic({

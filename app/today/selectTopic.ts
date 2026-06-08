@@ -36,7 +36,7 @@ export function selectDailyTopic({ interests, date, topics }: SelectArgs): Topic
   const pool = matching.length > 0 ? matching : published;
   if (pool.length === 0) return undefined;
 
-  const sorted = [...pool].sort((x, y) => x.slug.localeCompare(y.slug));
+  const sorted = [...pool].sort((x, y) => x.slug.localeCompare(y.slug, 'en'));
   const idx = hashString(dayKey(date)) % sorted.length;
   return sorted[idx];
 }
