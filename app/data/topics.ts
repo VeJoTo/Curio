@@ -1,4 +1,5 @@
-import type { Scene, Topic } from '@curio/shared';
+import type { Profile, Scene, Topic } from '@curio/shared';
+import { selectDailyTopic } from '../today/selectTopic';
 
 // Palette hexes used as scene accents (kept in sync with app/theme/tokens.ts).
 const ACCENT = {
@@ -176,6 +177,16 @@ export function getTopic(slug: string): Topic | undefined {
   return TOPICS[slug];
 }
 
-export function todayTopic(): Topic {
-  return theNorthernLights;
+export function getAllTopics(): Topic[] {
+  return Object.values(TOPICS);
+}
+
+export function todayTopic(profile?: Profile, date = new Date()): Topic {
+  return (
+    selectDailyTopic({
+      interests: profile?.interests ?? [],
+      date,
+      topics: getAllTopics(),
+    }) ?? theNorthernLights // guaranteed fallback: the catalog always has at least this topic
+  );
 }
