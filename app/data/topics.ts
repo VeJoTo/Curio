@@ -186,7 +186,7 @@ export const howYourHeartBeats: Topic = {
     scene('q5', 'Lub-dub: that double thump is two sets of valves snapping shut.', ACCENT.rose),
   ],
   scenesDeep: [
-    scene('d1', 'The heart sits in your chest, tilted slightly left, wrapped in a protective sac.', ACCENT.rose),
+    scene('d1', 'The heart sits near the middle of the chest, its lower tip tilting left, wrapped in a protective sac.', ACCENT.rose),
     scene('d2', 'It is divided into four chambers: two atria on top, two ventricles below.', ACCENT.teal),
     scene('d3', 'The right side collects oxygen-poor blood and sends it to the lungs.', ACCENT.indigo),
     scene('d4', 'The left side receives oxygen-rich blood and pumps it to the whole body.', ACCENT.rose),
@@ -196,7 +196,7 @@ export const howYourHeartBeats: Topic = {
     scene('d8', 'It pauses at a relay, the atrioventricular node, for a split second.', ACCENT.indigo),
     scene('d9', "Then it races down special fibres into the ventricles' walls.", ACCENT.indigo),
     scene('d10', 'The ventricles squeeze hard, driving blood to the lungs and the body.', ACCENT.rose),
-    scene('d11', 'Valves between the chambers snap shut to stop blood flowing backward.', ACCENT.teal),
+    scene('d11', 'Two sets of valves snap shut in turn to stop blood flowing backward.', ACCENT.teal),
     scene('d12', 'That closing is the heartbeat you hear — about 100,000 times a day.', ACCENT.rose),
   ],
   quizQuick: [
@@ -311,7 +311,7 @@ export const whyTheMoonHasPhases: Topic = {
     scene('d5', 'As it orbits, our view of the sunlit half keeps shifting.', ACCENT.teal),
     scene('d6', 'At new moon, the lit side faces away from us, so the Moon looks dark.', ACCENT.indigo),
     scene('d7', 'A few days later a thin crescent of the lit side comes into view.', ACCENT.rose),
-    scene('d8', 'At first quarter, we see half of the lit side as a half-moon.', ACCENT.teal),
+    scene('d8', "At first quarter, exactly half the Moon’s face is lit — a half-moon.", ACCENT.teal),
     scene('d9', 'The Moon waxes — the bright part grows night after night.', ACCENT.mustard),
     scene('d10', 'At full moon, we face the entire sunlit half.', ACCENT.rose),
     scene('d11', 'Then it wanes, shrinking back through gibbous, quarter, and crescent.', ACCENT.indigo),
@@ -418,7 +418,7 @@ export const howNoiseCancellingWorks: Topic = {
     scene('q1', 'Sound is a wave — a pattern of pressure rippling through the air.', ACCENT.teal),
     scene('q2', "Two waves can add up, or cancel out if they're perfectly opposite.", ACCENT.mustard),
     scene('q3', 'Noise-cancelling headphones listen to the noise around you with a tiny mic.', ACCENT.indigo),
-    scene('q4', 'They instantly generate the opposite wave and play it into your ear.', ACCENT.mustard),
+    scene('q4', 'They generate the opposite wave in microseconds and play it into your ear.', ACCENT.mustard),
     scene('q5', 'The two waves meet, flatten each other, and the noise fades.', ACCENT.teal),
   ],
   scenesDeep: [
