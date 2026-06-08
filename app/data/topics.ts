@@ -179,31 +179,86 @@ export const howYourHeartBeats: Topic = {
   publishedAt: '2026-06-04T08:00:00.000Z',
   heroImageUrl: PLACEHOLDER_IMG,
   scenesQuick: [
-    scene('q1', 'Your heart is a muscle about the size of your fist, just left of centre.', ACCENT.rose),
+    scene(
+      'q1',
+      'Your heart is a muscle about the size of your fist, just left of centre.',
+      ACCENT.rose,
+    ),
     scene('q2', 'It has four chambers — two to receive blood, two to push it out.', ACCENT.teal),
-    scene('q3', 'A tiny patch of cells fires an electrical spark, setting the rhythm.', ACCENT.mustard),
+    scene(
+      'q3',
+      'A tiny patch of cells fires an electrical spark, setting the rhythm.',
+      ACCENT.mustard,
+    ),
     scene('q4', 'The spark spreads, and the chambers squeeze in a precise order.', ACCENT.indigo),
     scene('q5', 'Lub-dub: that double thump is two sets of valves snapping shut.', ACCENT.rose),
   ],
   scenesDeep: [
-    scene('d1', 'The heart sits near the middle of the chest, its lower tip tilting left, wrapped in a protective sac.', ACCENT.rose),
-    scene('d2', 'It is divided into four chambers: two atria on top, two ventricles below.', ACCENT.teal),
-    scene('d3', 'The right side collects oxygen-poor blood and sends it to the lungs.', ACCENT.indigo),
-    scene('d4', 'The left side receives oxygen-rich blood and pumps it to the whole body.', ACCENT.rose),
-    scene('d5', 'Each beat starts in the sinoatrial node, a cluster of cells in the right atrium.', ACCENT.mustard),
-    scene('d6', 'These cells fire on their own — no signal from the brain required.', ACCENT.mustard),
-    scene('d7', 'The spark sweeps across the atria, making them contract and top up the ventricles.', ACCENT.teal),
-    scene('d8', 'It pauses at a relay, the atrioventricular node, for a split second.', ACCENT.indigo),
+    scene(
+      'd1',
+      'The heart sits near the middle of the chest, its lower tip tilting left, wrapped in a protective sac.',
+      ACCENT.rose,
+    ),
+    scene(
+      'd2',
+      'It is divided into four chambers: two atria on top, two ventricles below.',
+      ACCENT.teal,
+    ),
+    scene(
+      'd3',
+      'The right side collects oxygen-poor blood and sends it to the lungs.',
+      ACCENT.indigo,
+    ),
+    scene(
+      'd4',
+      'The left side receives oxygen-rich blood and pumps it to the whole body.',
+      ACCENT.rose,
+    ),
+    scene(
+      'd5',
+      'Each beat starts in the sinoatrial node, a cluster of cells in the right atrium.',
+      ACCENT.mustard,
+    ),
+    scene(
+      'd6',
+      'These cells fire on their own — no signal from the brain required.',
+      ACCENT.mustard,
+    ),
+    scene(
+      'd7',
+      'The spark sweeps across the atria, making them contract and top up the ventricles.',
+      ACCENT.teal,
+    ),
+    scene(
+      'd8',
+      'It pauses at a relay, the atrioventricular node, for a split second.',
+      ACCENT.indigo,
+    ),
     scene('d9', "Then it races down special fibres into the ventricles' walls.", ACCENT.indigo),
-    scene('d10', 'The ventricles squeeze hard, driving blood to the lungs and the body.', ACCENT.rose),
-    scene('d11', 'Two sets of valves snap shut in turn to stop blood flowing backward.', ACCENT.teal),
-    scene('d12', 'That closing is the heartbeat you hear — about 100,000 times a day.', ACCENT.rose),
+    scene(
+      'd10',
+      'The ventricles squeeze hard, driving blood to the lungs and the body.',
+      ACCENT.rose,
+    ),
+    scene(
+      'd11',
+      'Two sets of valves snap shut in turn to stop blood flowing backward.',
+      ACCENT.teal,
+    ),
+    scene(
+      'd12',
+      'That closing is the heartbeat you hear — about 100,000 times a day.',
+      ACCENT.rose,
+    ),
   ],
   quizQuick: [
     {
       prompt: "What sets the heart's rhythm?",
       choices: [
-        { text: 'A patch of cells called the sinoatrial node fires an electrical spark', isCorrect: true },
+        {
+          text: 'A patch of cells called the sinoatrial node fires an electrical spark',
+          isCorrect: true,
+        },
         { text: 'Signals sent from the brain with every beat', isCorrect: false },
         { text: 'The lungs pushing air into the chest', isCorrect: false },
       ],
@@ -299,8 +354,16 @@ export const whyTheMoonHasPhases: Topic = {
   scenesQuick: [
     scene('q1', "The Moon doesn't glow on its own — it reflects sunlight.", ACCENT.mustard),
     scene('q2', 'Half of the Moon is always lit; half is always dark.', ACCENT.indigo),
-    scene('q3', 'As the Moon orbits Earth, we see that lit half from changing angles.', ACCENT.teal),
-    scene('q4', "Sometimes we face the lit side, sometimes the dark — that's the phase.", ACCENT.indigo),
+    scene(
+      'q3',
+      'As the Moon orbits Earth, we see that lit half from changing angles.',
+      ACCENT.teal,
+    ),
+    scene(
+      'q4',
+      "Sometimes we face the lit side, sometimes the dark — that's the phase.",
+      ACCENT.indigo,
+    ),
     scene('q5', 'A full cycle, new moon to new moon, takes about 29.5 days.', ACCENT.rose),
   ],
   scenesDeep: [
@@ -309,12 +372,24 @@ export const whyTheMoonHasPhases: Topic = {
     scene('d3', "The other half is in shadow — the Moon's own night.", ACCENT.indigo),
     scene('d4', 'The Moon circles Earth roughly once a month.', ACCENT.teal),
     scene('d5', 'As it orbits, our view of the sunlit half keeps shifting.', ACCENT.teal),
-    scene('d6', 'At new moon, the lit side faces away from us, so the Moon looks dark.', ACCENT.indigo),
+    scene(
+      'd6',
+      'At new moon, the lit side faces away from us, so the Moon looks dark.',
+      ACCENT.indigo,
+    ),
     scene('d7', 'A few days later a thin crescent of the lit side comes into view.', ACCENT.rose),
-    scene('d8', "At first quarter, exactly half the Moon’s face is lit — a half-moon.", ACCENT.teal),
+    scene(
+      'd8',
+      'At first quarter, exactly half the Moon’s face is lit — a half-moon.',
+      ACCENT.teal,
+    ),
     scene('d9', 'The Moon waxes — the bright part grows night after night.', ACCENT.mustard),
     scene('d10', 'At full moon, we face the entire sunlit half.', ACCENT.rose),
-    scene('d11', 'Then it wanes, shrinking back through gibbous, quarter, and crescent.', ACCENT.indigo),
+    scene(
+      'd11',
+      'Then it wanes, shrinking back through gibbous, quarter, and crescent.',
+      ACCENT.indigo,
+    ),
     scene('d12', 'New moon to new moon takes about 29.5 days — one lunar month.', ACCENT.rose),
   ],
   quizQuick: [
@@ -359,7 +434,10 @@ export const whyTheMoonHasPhases: Topic = {
     {
       prompt: 'What is a new moon?',
       choices: [
-        { text: 'When the lit half faces away from Earth, so the Moon looks dark', isCorrect: true },
+        {
+          text: 'When the lit half faces away from Earth, so the Moon looks dark',
+          isCorrect: true,
+        },
         { text: "When Earth's shadow fully covers the Moon", isCorrect: false },
         { text: 'When the Moon is closest to Earth', isCorrect: false },
       ],
@@ -416,24 +494,56 @@ export const howNoiseCancellingWorks: Topic = {
   heroImageUrl: PLACEHOLDER_IMG,
   scenesQuick: [
     scene('q1', 'Sound is a wave — a pattern of pressure rippling through the air.', ACCENT.teal),
-    scene('q2', "Two waves can add up, or cancel out if they're perfectly opposite.", ACCENT.mustard),
-    scene('q3', 'Noise-cancelling headphones listen to the noise around you with a tiny mic.', ACCENT.indigo),
-    scene('q4', 'They generate the opposite wave in microseconds and play it into your ear.', ACCENT.mustard),
+    scene(
+      'q2',
+      "Two waves can add up, or cancel out if they're perfectly opposite.",
+      ACCENT.mustard,
+    ),
+    scene(
+      'q3',
+      'Noise-cancelling headphones listen to the noise around you with a tiny mic.',
+      ACCENT.indigo,
+    ),
+    scene(
+      'q4',
+      'They generate the opposite wave in microseconds and play it into your ear.',
+      ACCENT.mustard,
+    ),
     scene('q5', 'The two waves meet, flatten each other, and the noise fades.', ACCENT.teal),
   ],
   scenesDeep: [
     scene('d1', 'Sound travels as waves of high and low air pressure.', ACCENT.teal),
     scene('d2', 'When two waves line up crest to crest, they add — louder.', ACCENT.mustard),
-    scene('d3', "When one wave's crest meets another's trough, they cancel — quieter.", ACCENT.indigo),
+    scene(
+      'd3',
+      "When one wave's crest meets another's trough, they cancel — quieter.",
+      ACCENT.indigo,
+    ),
     scene('d4', 'Noise-cancelling headphones exploit that cancelling on purpose.', ACCENT.mustard),
     scene('d5', 'A tiny microphone samples the unwanted sound around you.', ACCENT.indigo),
     scene('d6', 'A chip measures the incoming wave many thousands of times a second.', ACCENT.teal),
     scene('d7', "It calculates the exact opposite, or 'anti-noise', wave.", ACCENT.mustard),
-    scene('d8', 'A speaker plays that anti-noise into your ear within a fraction of a millisecond.', ACCENT.indigo),
-    scene('d9', 'Your eardrum receives noise and anti-noise at once — they roughly cancel.', ACCENT.teal),
-    scene('d10', 'It works best on steady, low drones like engines and air conditioning.', ACCENT.rose),
+    scene(
+      'd8',
+      'A speaker plays that anti-noise into your ear within a fraction of a millisecond.',
+      ACCENT.indigo,
+    ),
+    scene(
+      'd9',
+      'Your eardrum receives noise and anti-noise at once — they roughly cancel.',
+      ACCENT.teal,
+    ),
+    scene(
+      'd10',
+      'It works best on steady, low drones like engines and air conditioning.',
+      ACCENT.rose,
+    ),
     scene('d11', 'Sudden, sharp sounds like speech are harder to cancel in time.', ACCENT.rose),
-    scene('d12', "That's why it dulls a plane's roar but not a person calling your name.", ACCENT.indigo),
+    scene(
+      'd12',
+      "That's why it dulls a plane's roar but not a person calling your name.",
+      ACCENT.indigo,
+    ),
   ],
   quizQuick: [
     {
@@ -495,7 +605,10 @@ export const howNoiseCancellingWorks: Topic = {
     {
       prompt: 'Why must the headphones react so fast?',
       choices: [
-        { text: 'The anti-noise must reach your ear at the same moment as the noise', isCorrect: true },
+        {
+          text: 'The anti-noise must reach your ear at the same moment as the noise',
+          isCorrect: true,
+        },
         { text: 'To save battery power', isCorrect: false },
         { text: 'To keep the music in tune', isCorrect: false },
       ],

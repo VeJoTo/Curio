@@ -77,15 +77,27 @@ describe('selectDailyTopic', () => {
   });
 
   it('is deterministic within a calendar day', () => {
-    const morning = selectDailyTopic({ interests: [], date: new Date(2026, 5, 8, 7), topics: [a, b, c] });
-    const night = selectDailyTopic({ interests: [], date: new Date(2026, 5, 8, 22), topics: [a, b, c] });
+    const morning = selectDailyTopic({
+      interests: [],
+      date: new Date(2026, 5, 8, 7),
+      topics: [a, b, c],
+    });
+    const night = selectDailyTopic({
+      interests: [],
+      date: new Date(2026, 5, 8, 22),
+      topics: [a, b, c],
+    });
     expect(morning?.slug).toBe(night?.slug);
   });
 
   it('changes the pick across days', () => {
     const slugs = new Set<string>();
     for (let d = 1; d <= 28; d++) {
-      const picked = selectDailyTopic({ interests: [], date: new Date(2026, 0, d), topics: [a, b, c] });
+      const picked = selectDailyTopic({
+        interests: [],
+        date: new Date(2026, 0, d),
+        topics: [a, b, c],
+      });
       if (picked) slugs.add(picked.slug);
     }
     expect(slugs.size).toBeGreaterThan(1);

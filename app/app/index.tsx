@@ -21,7 +21,6 @@ type GateState = 'loading' | 'onboard' | 'ready';
 
 export default function Today() {
   const router = useRouter();
-  const topic = todayTopic();
   const [gate, setGate] = useState<GateState>('loading');
   const [profile, setProfile] = useState<Profile | null>(null);
 
@@ -48,6 +47,8 @@ export default function Today() {
   if (gate === 'onboard') {
     return <Redirect href="/onboarding" />;
   }
+
+  const topic = todayTopic(profile ?? undefined);
 
   const onExplore = (depth: Depth) => {
     router.push({ pathname: '/topic/[slug]', params: { slug: topic.slug, depth } });
