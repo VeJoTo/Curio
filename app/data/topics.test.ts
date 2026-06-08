@@ -30,3 +30,23 @@ describe('topic fixture', () => {
     expect(todayTopic(profile, date).slug).toBe(todayTopic(profile, date).slug);
   });
 });
+
+describe('topic catalog', () => {
+  it('contains four published topics', () => {
+    const topics = getAllTopics();
+    expect(topics).toHaveLength(4);
+    expect(topics.every((t) => t.status === 'published')).toBe(true);
+  });
+
+  it('every catalog topic parses against the real TopicSchema', () => {
+    for (const topic of getAllTopics()) {
+      const result = TopicSchema.safeParse(topic);
+      expect(result.success, `${topic.slug} failed schema`).toBe(true);
+    }
+  });
+
+  it('catalog topics have unique slugs', () => {
+    const slugs = getAllTopics().map((t) => t.slug);
+    expect(new Set(slugs).size).toBe(slugs.length);
+  });
+});
