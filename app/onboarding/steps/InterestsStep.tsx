@@ -1,6 +1,6 @@
 import { StyleSheet, View } from 'react-native';
 import { ClayButton, Pill, Text } from '../../components';
-import { CATEGORIES } from '../../data/categories';
+import { availableInterestCategories } from '../../data/interests';
 import { theme } from '../../theme';
 import type { StepProps } from '../types';
 
@@ -27,7 +27,7 @@ export function InterestsStep({ draft, patch, next }: StepProps) {
         Pick {MIN}–{MAX} · {selected.length} chosen
       </Text>
       <View style={styles.row}>
-        {CATEGORIES.map((c) => (
+        {availableInterestCategories(selected).map((c) => (
           <Pill
             key={c.slug}
             label={`${c.emoji} ${c.name}`}
