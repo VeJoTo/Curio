@@ -5,7 +5,7 @@ import { vi } from 'vitest';
 vi.mock('react-native-reanimated', async () => {
   const React = await import('react');
   const RNW = (await import('react-native-web')) as any;
-  const View = RNW.View ?? RNW.default.View;
+  const View = RNW.View ?? RNW.default?.View;
   return {
     default: { View: (props: any) => React.createElement(View, props) },
     useSharedValue: (value: any) => ({ value }),
