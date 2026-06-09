@@ -11,6 +11,9 @@ interface TextProps {
   numberOfLines?: number;
   accessibilityRole?: AccessibilityRole;
   accessibilityLiveRegion?: 'none' | 'polite' | 'assertive';
+  // When set, assistive tech reads this instead of the visible children —
+  // useful when the visible text animates (e.g. a counting-up score).
+  accessibilityLabel?: string;
   children: ReactNode;
 }
 
@@ -21,6 +24,7 @@ export function Text({
   numberOfLines,
   accessibilityRole,
   accessibilityLiveRegion,
+  accessibilityLabel,
   children,
 }: TextProps) {
   return (
@@ -28,6 +32,7 @@ export function Text({
       numberOfLines={numberOfLines}
       accessibilityRole={accessibilityRole}
       accessibilityLiveRegion={accessibilityLiveRegion}
+      accessibilityLabel={accessibilityLabel}
       style={[theme.type[variant], { color: theme.color[color] }, style]}
     >
       {children}

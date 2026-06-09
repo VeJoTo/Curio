@@ -16,6 +16,19 @@ vi.mock('react-native-reanimated', async () => {
   };
 });
 
+// Moti (used by motion/Burst etc.) wraps react-native-reanimated; render its
+// views as plain Views under jsdom so components that pull in the motion
+// barrel mount in tests.
+vi.mock('moti', async () => {
+  const React = await import('react');
+  const RNW = (await import('react-native-web')) as any;
+  const View = RNW.View ?? RNW.default?.View;
+  return {
+    MotiView: (props: any) => React.createElement(View, props),
+    MotiText: (props: any) => React.createElement(View, props),
+  };
+});
+
 // ClayButton -> usePressNudge imports expo-haptics, which loads
 // expo-modules-core's NativeModule and crashes under jsdom (no native runtime).
 // Mock the API surface used so button components render in tests.

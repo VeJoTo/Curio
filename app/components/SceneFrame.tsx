@@ -28,7 +28,12 @@ export function SceneFrame({ scene, sceneIndex, sceneCount }: SceneFrameProps) {
       <Text variant="meta" color="inkSoft" style={styles.tag}>
         Scene {sceneIndex + 1} / {sceneCount}
       </Text>
-      <Text variant="title" color="ink">
+      <Text
+        variant="title"
+        color="ink"
+        accessibilityLiveRegion="polite"
+        accessibilityLabel={`Scene ${sceneIndex + 1} of ${sceneCount}. ${scene.caption}`}
+      >
         {scene.caption}
       </Text>
     </View>

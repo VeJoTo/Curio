@@ -44,7 +44,7 @@ export default function Today() {
   if (gate === 'loading') {
     return (
       <SafeAreaView style={[styles.screen, styles.center]}>
-        <ActivityIndicator color={theme.color.indigo} />
+        <ActivityIndicator color={theme.color.indigo} accessibilityLabel="Loading today's topic" />
       </SafeAreaView>
     );
   }

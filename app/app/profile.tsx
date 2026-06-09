@@ -64,7 +64,7 @@ export default function ProfileScreen() {
   if (load.status === 'loading') {
     return (
       <SafeAreaView style={[styles.screen, styles.center]}>
-        <ActivityIndicator color={theme.color.indigo} />
+        <ActivityIndicator color={theme.color.indigo} accessibilityLabel="Loading your profile" />
       </SafeAreaView>
     );
   }
@@ -195,6 +195,7 @@ export default function ProfileScreen() {
               Default depth
             </Text>
             <SegmentedToggle
+              accessibilityLabel="Default depth"
               options={['Quick', 'Deep']}
               value={draft.defaultDepth === 'deep' ? 'Deep' : 'Quick'}
               onChange={(v) =>
