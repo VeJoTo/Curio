@@ -14,7 +14,7 @@ import {
   TimePicker,
 } from '../components';
 import { AGE_BANDS } from '../data/ageBands';
-import { CATEGORIES } from '../data/categories';
+import { availableInterestCategories } from '../data/interests';
 import { Reveal } from '../motion';
 import {
   MAX_INTERESTS,
@@ -158,7 +158,7 @@ export default function ProfileScreen() {
               Interests · {draft.interests.length} chosen
             </Text>
             <View style={styles.row}>
-              {CATEGORIES.map((c) => (
+              {availableInterestCategories(draft.interests).map((c) => (
                 <Pill
                   key={c.slug}
                   label={`${c.emoji} ${c.name}`}

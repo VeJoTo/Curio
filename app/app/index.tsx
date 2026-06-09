@@ -1,6 +1,6 @@
 import type { Profile } from '@curio/shared';
-import { Redirect, useRouter } from 'expo-router';
-import { useEffect, useState } from 'react';
+import { Redirect, useFocusEffect, useRouter } from 'expo-router';
+import { useCallback, useState } from 'react';
 import {
   ActivityIndicator,
   Pressable,
@@ -21,22 +21,25 @@ type GateState = 'loading' | 'onboard' | 'ready';
 
 export default function Today() {
   const router = useRouter();
-  const topic = todayTopic();
   const [gate, setGate] = useState<GateState>('loading');
   const [profile, setProfile] = useState<Profile | null>(null);
 
-  useEffect(() => {
-    let mounted = true;
-    getProfile().then((p) => {
-      if (mounted) {
-        setProfile(p);
-        setGate(p ? 'ready' : 'onboard');
-      }
-    });
-    return () => {
-      mounted = false;
-    };
-  }, []);
+  // Re-read the profile every time the screen regains focus (e.g. returning from
+  // the profile editor) so interest edits change today's topic without a reload.
+  useFocusEffect(
+    useCallback(() => {
+      let active = true;
+      getProfile().then((p) => {
+        if (active) {
+          setProfile(p);
+          setGate(p ? 'ready' : 'onboard');
+        }
+      });
+      return () => {
+        active = false;
+      };
+    }, []),
+  );
 
   if (gate === 'loading') {
     return (
@@ -48,6 +51,8 @@ export default function Today() {
   if (gate === 'onboard') {
     return <Redirect href="/onboarding" />;
   }
+
+  const topic = todayTopic(profile ?? undefined);
 
   const onExplore = (depth: Depth) => {
     router.push({ pathname: '/topic/[slug]', params: { slug: topic.slug, depth } });
