@@ -52,6 +52,10 @@ describe('useAsyncAction', () => {
   it('does not throw when run resolves after unmount', async () => {
     const d = deferred();
     const action = vi.fn(() => d.promise);
+    // React 18 silently ignores state updates on an unmounted component (no
+    // legacy warning), so the mountedRef guard isn't directly observable. We at
+    // least assert nothing errors/warns when the action resolves post-unmount.
+    const errorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
     const { result, unmount } = renderHook(() => useAsyncAction(action));
 
     let runPromise!: Promise<void>;
@@ -64,5 +68,7 @@ describe('useAsyncAction', () => {
       await runPromise;
     });
     expect(action).toHaveBeenCalledTimes(1);
+    expect(errorSpy).not.toHaveBeenCalled();
+    errorSpy.mockRestore();
   });
 });
