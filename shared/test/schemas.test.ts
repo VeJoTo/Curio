@@ -178,6 +178,20 @@ describe('TopicSchema', () => {
     expect(result.success).toBe(true);
   });
 
+  it('accepts optional heroEmoji and heroGifId', () => {
+    const result = TopicSchema.safeParse({
+      ...validTopic,
+      heroEmoji: '🌌',
+      heroGifId: 'lp8JOW74nExzvnPdjV',
+    });
+    expect(result.success).toBe(true);
+  });
+
+  it('rejects an empty heroGifId', () => {
+    const result = TopicSchema.safeParse({ ...validTopic, heroGifId: '' });
+    expect(result.success).toBe(false);
+  });
+
   it('rejects a topic with an empty title', () => {
     const result = TopicSchema.safeParse({ ...validTopic, title: '' });
     expect(result.success).toBe(false);

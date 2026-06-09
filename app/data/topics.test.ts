@@ -74,6 +74,13 @@ describe('topic catalog', () => {
       ).toBeDefined();
     }
   });
+
+  it('curated topics carry their heroGifId; the heart topic stays emoji-only', () => {
+    expect(getTopic('the-northern-lights')?.heroGifId).toBe('lp8JOW74nExzvnPdjV');
+    expect(getTopic('why-the-moon-has-phases')?.heroGifId).toBe('3oEjHNHGf0i6OIhJII');
+    expect(getTopic('how-noise-cancelling-works')?.heroGifId).toBe('8L0Pbbkno5BI8n4CaI');
+    expect(getTopic('how-your-heart-beats')?.heroGifId).toBeUndefined();
+  });
 });
 
 describe('estimateMinutes', () => {

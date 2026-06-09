@@ -24,6 +24,7 @@ export const theNorthernLights: Topic = {
   status: 'published',
   publishedAt: '2026-06-03T08:00:00.000Z',
   heroEmoji: '🌌',
+  heroGifId: 'lp8JOW74nExzvnPdjV',
   heroImageUrl: PLACEHOLDER_IMG,
   scenesQuick: [
     scene(
@@ -353,6 +354,7 @@ export const whyTheMoonHasPhases: Topic = {
   status: 'published',
   publishedAt: '2026-06-05T08:00:00.000Z',
   heroEmoji: '🌙',
+  heroGifId: '3oEjHNHGf0i6OIhJII',
   heroImageUrl: PLACEHOLDER_IMG,
   scenesQuick: [
     scene('q1', "The Moon doesn't glow on its own — it reflects sunlight.", ACCENT.mustard),
@@ -495,6 +497,7 @@ export const howNoiseCancellingWorks: Topic = {
   status: 'published',
   publishedAt: '2026-06-06T08:00:00.000Z',
   heroEmoji: '🎧',
+  heroGifId: '8L0Pbbkno5BI8n4CaI',
   heroImageUrl: PLACEHOLDER_IMG,
   scenesQuick: [
     scene('q1', 'Sound is a wave — a pattern of pressure rippling through the air.', ACCENT.teal),

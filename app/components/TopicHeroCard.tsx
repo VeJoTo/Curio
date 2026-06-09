@@ -1,8 +1,11 @@
 import type { Topic } from '@curio/shared';
-import { useState } from 'react';
+import { Image as ExpoImage } from 'expo-image';
+import { useEffect, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { getCategory } from '../data/categories';
+import { giphyGifUrl } from '../data/gif';
 import { estimateMinutes } from '../data/topics';
+import { useReducedMotion } from '../hooks/useReducedMotion';
 import { Pulse } from '../motion';
 import { theme } from '../theme';
 import { ClayButton } from './ClayButton';
@@ -31,6 +34,17 @@ export function TopicHeroCard({ topic, onExplore, initialDepth = 'quick' }: Topi
   const badgeLabel = category ? `${category.emoji} ${category.name}` : topic.categorySlug;
   const heroGlyph = topic.heroEmoji ?? category?.emoji ?? '✨';
 
+  const reduced = useReducedMotion();
+  const [gifError, setGifError] = useState(false);
+  const showGif = !reduced && !gifError && Boolean(topic.heroGifId);
+
+  // Reset the error latch when the topic (and thus its GIF) changes, so a failed
+  // GIF on one topic doesn't permanently suppress the next topic's GIF on this card.
+  // biome-ignore lint/correctness/useExhaustiveDependencies: topic.heroGifId is the intentional trigger; setGifError is a stable setter
+  useEffect(() => {
+    setGifError(false);
+  }, [topic.heroGifId]);
+
   return (
     <ClayCard surface="cream">
       <Pill label={badgeLabel} tint={accent} />
@@ -38,8 +52,24 @@ export function TopicHeroCard({ topic, onExplore, initialDepth = 'quick' }: Topi
         {topic.title}
       </Text>
       <View style={[styles.hero, { backgroundColor: accent }]}>
-        <Text variant="display">{heroGlyph}</Text>
+        {showGif ? (
+          <ExpoImage
+            source={{ uri: giphyGifUrl(topic.heroGifId as string) }}
+            style={styles.heroImage}
+            contentFit="cover"
+            transition={200}
+            onError={() => setGifError(true)}
+            accessibilityLabel={`${topic.title} animation`}
+          />
+        ) : (
+          <Text variant="display">{heroGlyph}</Text>
+        )}
       </View>
+      {showGif ? (
+        <Text variant="meta" color="inkSoft" style={styles.attribution}>
+          via GIPHY
+        </Text>
+      ) : null}
       <Text variant="body" color="ink" style={styles.deck}>
         {topic.deck}
       </Text>
@@ -75,7 +105,10 @@ const styles = StyleSheet.create({
     borderColor: theme.color.ink,
     alignItems: 'center',
     justifyContent: 'center',
+    overflow: 'hidden',
   },
+  heroImage: { width: '100%', height: '100%' },
+  attribution: { marginTop: theme.space.xs, alignSelf: 'flex-end' },
   deck: { marginTop: theme.space.md, marginBottom: theme.space.md },
   toggle: { marginBottom: theme.space.xs },
   hint: { marginBottom: theme.space.md },
