@@ -2,6 +2,9 @@ import path from 'node:path';
 import { defineConfig } from 'vitest/config';
 
 export default defineConfig({
+  esbuild: {
+    jsx: 'automatic',
+  },
   resolve: {
     alias: {
       '@curio/shared': path.resolve(__dirname, '../shared/src/index.ts'),
