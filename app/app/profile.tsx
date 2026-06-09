@@ -1,8 +1,8 @@
 import type { Profile } from '@curio/shared';
+import * as Haptics from 'expo-haptics';
 import { Redirect, useRouter } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { ActivityIndicator, Alert, SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
-import * as Haptics from 'expo-haptics';
 import {
   AvatarPicker,
   ClayButton,
