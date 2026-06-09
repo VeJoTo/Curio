@@ -497,7 +497,7 @@ export const howNoiseCancellingWorks: Topic = {
   status: 'published',
   publishedAt: '2026-06-06T08:00:00.000Z',
   heroEmoji: '🎧',
-  heroGifId: 'Iau1CnfrjAmaITVSe8',
+  heroGifId: '8L0Pbbkno5BI8n4CaI',
   heroImageUrl: PLACEHOLDER_IMG,
   scenesQuick: [
     scene('q1', 'Sound is a wave — a pattern of pressure rippling through the air.', ACCENT.teal),
