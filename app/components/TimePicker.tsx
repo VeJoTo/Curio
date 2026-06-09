@@ -60,10 +60,19 @@ export function TimePicker({ value, onChange }: TimePickerProps) {
             onPress={() => setMinute((m) => (m + 15) % 60)}
           />
         </View>
+        <Text variant="meta" color="inkSoft" style={styles.hint}>
+          15-minute steps · 24-hour clock
+        </Text>
         <ClayButton
           label="Set time →"
           variant="coral"
           onPress={() => onChange(hhmm(hour, minute))}
+          style={styles.cta}
+        />
+        <ClayButton
+          label="← Back to presets"
+          variant="ghost"
+          onPress={() => setCustom(false)}
           style={styles.cta}
         />
       </View>
@@ -111,4 +120,5 @@ const styles = StyleSheet.create({
     marginTop: theme.space.sm,
   },
   cta: { alignSelf: 'stretch', marginTop: theme.space.md },
+  hint: { textAlign: 'center', marginTop: theme.space.sm },
 });

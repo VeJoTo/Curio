@@ -49,7 +49,7 @@ export default function Result() {
           <TextField
             value={reflection}
             onChangeText={setReflection}
-            placeholder="It's not actually reflected light…"
+            placeholder="A fact, a question, anything…"
             accessibilityLabel="Your reflection"
           />
         </Reveal>

@@ -99,6 +99,17 @@ export default function ProfileScreen() {
   };
   const save = useAsyncAction(onSave);
 
+  const onBack = () => {
+    if (isDirty(draft, original)) {
+      Alert.alert('Discard changes?', 'Your unsaved edits will be lost.', [
+        { text: 'Keep editing', style: 'cancel' },
+        { text: 'Discard', style: 'destructive', onPress: () => router.back() },
+      ]);
+      return;
+    }
+    router.back();
+  };
+
   const onStartOver = () => {
     Alert.alert('Start over?', 'This clears your profile and restarts onboarding.', [
       { text: 'Cancel', style: 'cancel' },
@@ -117,7 +128,7 @@ export default function ProfileScreen() {
   return (
     <SafeAreaView style={styles.screen}>
       <View style={styles.header}>
-        <IconButton icon="←" accessibilityLabel="Back" onPress={() => router.back()} />
+        <IconButton icon="←" accessibilityLabel="Go back" onPress={onBack} />
         <Text variant="title" color="ink">
           You
         </Text>
@@ -166,6 +177,7 @@ export default function ProfileScreen() {
           <ClayCard surface="cream" style={styles.card}>
             <Text variant="meta" color="inkSoft" style={styles.label}>
               Interests · {draft.interests.length} chosen
+              {draft.interests.length >= MAX_INTERESTS ? ' · max reached' : ''}
             </Text>
             <View style={styles.row}>
               {availableInterestCategories(draft.interests).map((c) => (
