@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { SafeAreaView, StyleSheet, View } from 'react-native';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import { runOnJS } from 'react-native-reanimated';
-import { ClayButton, IconButton, ProgressDots, SceneFrame, Text } from '../../../components';
+import { ClayButton, IconButton, NotFound, ProgressDots, SceneFrame } from '../../../components';
 import { getTopic } from '../../../data/topics';
 import { Reveal } from '../../../motion';
 import { theme } from '../../../theme';
@@ -17,9 +17,11 @@ export default function Story() {
 
   if (!topic) {
     return (
-      <SafeAreaView style={styles.screen}>
-        <Text variant="body">Topic not found.</Text>
-      </SafeAreaView>
+      <NotFound
+        title="Topic not found"
+        message="We couldn't find that topic. Let's head back to today's story."
+        onGoHome={() => router.dismissAll()}
+      />
     );
   }
 
