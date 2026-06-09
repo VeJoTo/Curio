@@ -16,6 +16,7 @@ export default defineConfig({
       'theme/**/*.test.ts',
       'data/**/*.test.ts',
       'onboarding/**/*.test.ts',
+      'onboarding/**/*.test.tsx',
       'today/**/*.test.ts',
       'profile/**/*.test.ts',
       'components/**/*.test.tsx',
@@ -25,6 +26,7 @@ export default defineConfig({
     environmentMatchGlobs: [
       ['components/**/*.test.tsx', 'jsdom'],
       ['hooks/**/*.test.tsx', 'jsdom'],
+      ['onboarding/**/*.test.tsx', 'jsdom'],
     ],
     setupFiles: ['./vitest.setup.ts'],
   },
