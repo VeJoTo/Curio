@@ -1,5 +1,6 @@
 import { TopicSchema } from '@curio/shared';
 import { describe, expect, it } from 'vitest';
+import { getCategory } from './categories';
 import { estimateMinutes, getAllTopics, getTopic, theNorthernLights, todayTopic } from './topics';
 
 describe('topic fixture', () => {
@@ -62,6 +63,15 @@ describe('topic catalog', () => {
   it('every catalog topic has a heroEmoji', () => {
     for (const topic of getAllTopics()) {
       expect(topic.heroEmoji, `${topic.slug} missing heroEmoji`).toBeTruthy();
+    }
+  });
+
+  it('every catalog topic has a categorySlug known to CATEGORIES', () => {
+    for (const topic of getAllTopics()) {
+      expect(
+        getCategory(topic.categorySlug),
+        `${topic.slug} has unknown categorySlug`,
+      ).toBeDefined();
     }
   });
 });
