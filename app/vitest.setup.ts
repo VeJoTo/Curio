@@ -16,6 +16,14 @@ vi.mock('react-native-reanimated', async () => {
   };
 });
 
+// ClayButton -> usePressNudge imports expo-haptics, which loads
+// expo-modules-core's NativeModule and crashes under jsdom (no native runtime).
+// Mock the API surface used so button components render in tests.
+vi.mock('expo-haptics', () => ({
+  impactAsync: () => Promise.resolve(),
+  ImpactFeedbackStyle: { Light: 'light', Medium: 'medium', Heavy: 'heavy' },
+}));
+
 // jsdom has no matchMedia; react-native-web's AccessibilityInfo needs it.
 if (typeof window !== 'undefined' && !window.matchMedia) {
   window.matchMedia = ((query: string) => ({
