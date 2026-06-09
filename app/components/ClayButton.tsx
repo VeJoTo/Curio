@@ -1,4 +1,4 @@
-import { Platform, Pressable, StyleSheet } from 'react-native';
+import { ActivityIndicator, Platform, Pressable, StyleSheet } from 'react-native';
 import type { StyleProp, ViewStyle } from 'react-native';
 import Animated from 'react-native-reanimated';
 import { usePressNudge } from '../hooks/usePressNudge';
@@ -12,6 +12,8 @@ interface ClayButtonProps {
   onPress: () => void;
   variant?: Variant;
   disabled?: boolean;
+  /** When true, shows a spinner in place of the label and makes the button inert. */
+  loading?: boolean;
   icon?: string;
   iconPosition?: 'leading' | 'trailing';
   style?: StyleProp<ViewStyle>;
@@ -28,12 +30,15 @@ export function ClayButton({
   onPress,
   variant = 'indigo',
   disabled = false,
+  loading = false,
   icon,
   iconPosition = 'trailing',
   style,
 }: ClayButtonProps) {
   const { animatedStyle, onPressIn, onPressOut } = usePressNudge();
   const textColor = variant === 'ghost' ? 'ink' : 'surface';
+  const spinnerColor = variant === 'ghost' ? theme.color.ink : theme.color.surface;
+  const isInert = disabled || loading;
   const iconNode = icon ? (
     <Text variant="bodyStrong" color={textColor}>
       {icon}
@@ -43,26 +48,32 @@ export function ClayButton({
   return (
     <Pressable
       onPress={onPress}
-      onPressIn={disabled ? undefined : onPressIn}
-      onPressOut={disabled ? undefined : onPressOut}
-      disabled={disabled}
+      onPressIn={isInert ? undefined : onPressIn}
+      onPressOut={isInert ? undefined : onPressOut}
+      disabled={isInert}
       accessibilityRole="button"
       accessibilityLabel={label}
-      accessibilityState={{ disabled }}
+      accessibilityState={{ disabled: isInert, busy: loading }}
     >
       <Animated.View
         style={[
           styles.btn,
-          { backgroundColor: fill[variant], opacity: disabled ? 0.4 : 1 },
+          { backgroundColor: fill[variant], opacity: disabled && !loading ? 0.4 : 1 },
           style,
-          disabled ? null : animatedStyle,
+          isInert ? null : animatedStyle,
         ]}
       >
-        {icon && iconPosition === 'leading' ? iconNode : null}
-        <Text variant="bodyStrong" color={textColor}>
-          {label}
-        </Text>
-        {icon && iconPosition === 'trailing' ? iconNode : null}
+        {loading ? (
+          <ActivityIndicator color={spinnerColor} />
+        ) : (
+          <>
+            {icon && iconPosition === 'leading' ? iconNode : null}
+            <Text variant="bodyStrong" color={textColor}>
+              {label}
+            </Text>
+            {icon && iconPosition === 'trailing' ? iconNode : null}
+          </>
+        )}
       </Animated.View>
     </Pressable>
   );
@@ -72,6 +83,7 @@ const styles = StyleSheet.create({
   btn: {
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'center',
     gap: theme.space.xs,
     alignSelf: 'flex-start',
     borderWidth: theme.borderWidth,

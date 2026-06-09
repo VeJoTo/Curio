@@ -1,4 +1,5 @@
 import type { Profile } from '@curio/shared';
+import * as Haptics from 'expo-haptics';
 import { Redirect, useRouter } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { ActivityIndicator, Alert, SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
@@ -15,6 +16,7 @@ import {
 } from '../components';
 import { AGE_BANDS } from '../data/ageBands';
 import { availableInterestCategories } from '../data/interests';
+import { useAsyncAction } from '../hooks/useAsyncAction';
 import { Reveal } from '../motion';
 import {
   MAX_INTERESTS,
@@ -32,11 +34,14 @@ type LoadState =
   | { status: 'missing' }
   | { status: 'ready'; profile: Profile; original: ProfileDraft };
 
+const SAVE_CONFIRM_MS = 700;
+
 export default function ProfileScreen() {
   const router = useRouter();
   const [load, setLoad] = useState<LoadState>({ status: 'loading' });
   const [draft, setDraft] = useState<ProfileDraft | null>(null);
   const [saveError, setSaveError] = useState(false);
+  const [saved, setSaved] = useState(false);
 
   useEffect(() => {
     let mounted = true;
@@ -79,15 +84,20 @@ export default function ProfileScreen() {
   };
 
   const onSave = async () => {
+    setSaveError(false);
     try {
-      setSaveError(false);
       await saveProfile(toProfile(draft, profile));
-      router.back();
     } catch (err) {
       console.error('profile save failed', err);
       setSaveError(true);
+      return;
     }
+    Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success).catch(() => {});
+    setSaved(true);
+    await new Promise((resolve) => setTimeout(resolve, SAVE_CONFIRM_MS));
+    router.back();
   };
+  const save = useAsyncAction(onSave);
 
   const onStartOver = () => {
     Alert.alert('Start over?', 'This clears your profile and restarts onboarding.', [
@@ -193,7 +203,13 @@ export default function ProfileScreen() {
             />
           </ClayCard>
 
-          {saveError ? (
+          {saved ? (
+            <View accessibilityLiveRegion="polite" style={styles.error}>
+              <Text variant="meta" color="teal">
+                Saved ✓
+              </Text>
+            </View>
+          ) : saveError ? (
             <View accessibilityLiveRegion="polite" style={styles.error}>
               <Text variant="meta" color="coral">
                 Couldn't save. Please try again.
@@ -204,8 +220,9 @@ export default function ProfileScreen() {
           <ClayButton
             label="Save changes"
             variant="coral"
-            disabled={!canSave}
-            onPress={onSave}
+            disabled={!canSave || save.pending}
+            loading={save.pending && !saved}
+            onPress={save.run}
             style={styles.save}
           />
 

@@ -1,6 +1,7 @@
 import * as Notifications from 'expo-notifications';
 import { Platform, StyleSheet, View } from 'react-native';
 import { ClayButton, Text } from '../../components';
+import { useAsyncAction } from '../../hooks/useAsyncAction';
 import { theme } from '../../theme';
 import type { NotifPermission, StepProps } from '../types';
 
@@ -25,6 +26,7 @@ export function NotificationsStep({ patch, next }: StepProps) {
     patch({ notifPermission: toPermission(status) });
     next();
   };
+  const allowAction = useAsyncAction(allow);
 
   return (
     <View style={styles.wrap}>
@@ -37,10 +39,17 @@ export function NotificationsStep({ patch, next }: StepProps) {
       <Text variant="body" color="inkSoft">
         No spam — just your daily spark, at the time you picked.
       </Text>
-      <ClayButton label="Allow notifications" variant="coral" onPress={allow} style={styles.cta} />
+      <ClayButton
+        label="Allow notifications"
+        variant="coral"
+        loading={allowAction.pending}
+        onPress={allowAction.run}
+        style={styles.cta}
+      />
       <ClayButton
         label="Maybe later"
         variant="ghost"
+        disabled={allowAction.pending}
         onPress={() => {
           patch({ notifPermission: 'undetermined' });
           next();

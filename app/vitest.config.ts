@@ -19,9 +19,13 @@ export default defineConfig({
       'today/**/*.test.ts',
       'profile/**/*.test.ts',
       'components/**/*.test.tsx',
+      'hooks/**/*.test.tsx',
     ],
     environment: 'node',
-    environmentMatchGlobs: [['components/**/*.test.tsx', 'jsdom']],
+    environmentMatchGlobs: [
+      ['components/**/*.test.tsx', 'jsdom'],
+      ['hooks/**/*.test.tsx', 'jsdom'],
+    ],
     setupFiles: ['./vitest.setup.ts'],
   },
 });
