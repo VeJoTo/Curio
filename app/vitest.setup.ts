@@ -22,6 +22,8 @@ vi.mock('react-native-reanimated', async () => {
 vi.mock('expo-haptics', () => ({
   impactAsync: () => Promise.resolve(),
   ImpactFeedbackStyle: { Light: 'light', Medium: 'medium', Heavy: 'heavy' },
+  notificationAsync: () => Promise.resolve(),
+  NotificationFeedbackType: { Success: 'success', Warning: 'warning', Error: 'error' },
 }));
 
 // jsdom has no matchMedia; react-native-web's AccessibilityInfo needs it.
