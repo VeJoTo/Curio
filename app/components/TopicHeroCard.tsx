@@ -1,6 +1,6 @@
 import type { Topic } from '@curio/shared';
 import { Image as ExpoImage } from 'expo-image';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { getCategory } from '../data/categories';
 import { giphyGifUrl } from '../data/gif';
@@ -37,6 +37,13 @@ export function TopicHeroCard({ topic, onExplore, initialDepth = 'quick' }: Topi
   const reduced = useReducedMotion();
   const [gifError, setGifError] = useState(false);
   const showGif = !reduced && !gifError && Boolean(topic.heroGifId);
+
+  // Reset the error latch when the topic (and thus its GIF) changes, so a failed
+  // GIF on one topic doesn't permanently suppress the next topic's GIF on this card.
+  // biome-ignore lint/correctness/useExhaustiveDependencies: topic.heroGifId is the intentional trigger; setGifError is a stable setter
+  useEffect(() => {
+    setGifError(false);
+  }, [topic.heroGifId]);
 
   return (
     <ClayCard surface="cream">
