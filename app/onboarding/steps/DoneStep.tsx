@@ -1,11 +1,13 @@
 import { StyleSheet, View } from 'react-native';
 import { Avatar, ClayButton, Text } from '../../components';
+import { useAsyncAction } from '../../hooks/useAsyncAction';
 import { Burst } from '../../motion';
 import { theme } from '../../theme';
 import type { StepProps } from '../types';
 
 export function DoneStep({ draft, finish }: StepProps) {
   const name = draft.name?.trim();
+  const action = useAsyncAction(finish);
   return (
     <View style={styles.wrap}>
       <Burst active />
@@ -18,7 +20,13 @@ export function DoneStep({ draft, finish }: StepProps) {
       <Text variant="body" color="inkSoft">
         Your first topic is waiting.
       </Text>
-      <ClayButton label="Start exploring →" variant="coral" onPress={finish} style={styles.cta} />
+      <ClayButton
+        label="Start exploring →"
+        variant="coral"
+        loading={action.pending}
+        onPress={action.run}
+        style={styles.cta}
+      />
     </View>
   );
 }

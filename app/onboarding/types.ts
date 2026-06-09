@@ -18,5 +18,5 @@ export interface StepProps {
   draft: OnboardingDraft;
   patch: (p: Partial<OnboardingDraft>) => void;
   next: () => void;
-  finish: () => void;
+  finish: () => Promise<void>;
 }
