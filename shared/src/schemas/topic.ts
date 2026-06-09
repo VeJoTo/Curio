@@ -46,6 +46,8 @@ export const TopicSchema = z.object({
 
   /** Single evocative glyph shown large on the Today hero panel. */
   heroEmoji: z.string().min(1).optional(),
+  /** Giphy GIF id for the Today hero panel (keyless CDN render). */
+  heroGifId: z.string().min(1).optional(),
   heroImageUrl: z.string().url(),
   scenesQuick: z.array(SceneSchema).min(4).max(6),
   scenesDeep: z.array(SceneSchema).min(10).max(14),
