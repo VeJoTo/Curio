@@ -23,6 +23,7 @@ export const theNorthernLights: Topic = {
   ageBand: 'all',
   status: 'published',
   publishedAt: '2026-06-03T08:00:00.000Z',
+  heroEmoji: '🌌',
   heroImageUrl: PLACEHOLDER_IMG,
   scenesQuick: [
     scene(
@@ -177,6 +178,7 @@ export const howYourHeartBeats: Topic = {
   ageBand: 'all',
   status: 'published',
   publishedAt: '2026-06-04T08:00:00.000Z',
+  heroEmoji: '❤️',
   heroImageUrl: PLACEHOLDER_IMG,
   scenesQuick: [
     scene(
@@ -350,6 +352,7 @@ export const whyTheMoonHasPhases: Topic = {
   ageBand: 'all',
   status: 'published',
   publishedAt: '2026-06-05T08:00:00.000Z',
+  heroEmoji: '🌙',
   heroImageUrl: PLACEHOLDER_IMG,
   scenesQuick: [
     scene('q1', "The Moon doesn't glow on its own — it reflects sunlight.", ACCENT.mustard),
@@ -491,6 +494,7 @@ export const howNoiseCancellingWorks: Topic = {
   ageBand: 'all',
   status: 'published',
   publishedAt: '2026-06-06T08:00:00.000Z',
+  heroEmoji: '🎧',
   heroImageUrl: PLACEHOLDER_IMG,
   scenesQuick: [
     scene('q1', 'Sound is a wave — a pattern of pressure rippling through the air.', ACCENT.teal),
@@ -645,6 +649,11 @@ const TOPICS: Record<string, Topic> = {
 
 export function getTopic(slug: string): Topic | undefined {
   return TOPICS[slug];
+}
+
+/** Rough read-time estimate in minutes: ~15s per scene + ~20s per quiz question, min 1. */
+export function estimateMinutes(sceneCount: number, questionCount: number): number {
+  return Math.max(1, Math.round((sceneCount * 15 + questionCount * 20) / 60));
 }
 
 export function getAllTopics(): Topic[] {

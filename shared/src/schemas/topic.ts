@@ -44,6 +44,8 @@ export const TopicSchema = z.object({
   status: Status,
   publishedAt: z.string().datetime().nullable().optional(),
 
+  /** Single evocative glyph shown large on the Today hero panel. */
+  heroEmoji: z.string().min(1).optional(),
   heroImageUrl: z.string().url(),
   scenesQuick: z.array(SceneSchema).min(4).max(6),
   scenesDeep: z.array(SceneSchema).min(10).max(14),

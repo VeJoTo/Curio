@@ -1,6 +1,8 @@
 import type { Topic } from '@curio/shared';
 import { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
+import { getCategory } from '../data/categories';
+import { estimateMinutes } from '../data/topics';
 import { Pulse } from '../motion';
 import { theme } from '../theme';
 import { ClayButton } from './ClayButton';
@@ -22,16 +24,21 @@ export function TopicHeroCard({ topic, onExplore, initialDepth = 'quick' }: Topi
 
   const sceneCount = depth === 'quick' ? topic.scenesQuick.length : topic.scenesDeep.length;
   const questionCount = depth === 'quick' ? topic.quizQuick.length : topic.quizDeep.length;
-  const minutes = depth === 'quick' ? '~2 min' : '~12 min';
+  const minutes = estimateMinutes(sceneCount, questionCount);
+
+  const category = getCategory(topic.categorySlug);
+  const accent = category ? theme.categoryColor[category.colorToken] : theme.color.teal;
+  const badgeLabel = category ? `${category.emoji} ${category.name}` : topic.categorySlug;
+  const heroGlyph = topic.heroEmoji ?? category?.emoji ?? '✨';
 
   return (
     <ClayCard surface="cream">
-      <Pill label="🌍 Earth & Sky" tint={theme.color.teal} />
+      <Pill label={badgeLabel} tint={accent} />
       <Text variant="display" color="ink" style={styles.title}>
         {topic.title}
       </Text>
-      <View style={styles.hero}>
-        <Text variant="display">🌌</Text>
+      <View style={[styles.hero, { backgroundColor: accent }]}>
+        <Text variant="display">{heroGlyph}</Text>
       </View>
       <Text variant="body" color="ink" style={styles.deck}>
         {topic.deck}
@@ -44,7 +51,7 @@ export function TopicHeroCard({ topic, onExplore, initialDepth = 'quick' }: Topi
         />
       </View>
       <Text variant="meta" color="inkSoft" style={styles.hint}>
-        {minutes} · {sceneCount} scenes · {questionCount} questions
+        ~{minutes} min · {sceneCount} scenes · {questionCount} questions
       </Text>
       <Pulse>
         <ClayButton
@@ -66,7 +73,6 @@ const styles = StyleSheet.create({
     borderRadius: theme.radius.md,
     borderWidth: theme.borderWidth,
     borderColor: theme.color.ink,
-    backgroundColor: theme.color.teal,
     alignItems: 'center',
     justifyContent: 'center',
   },
