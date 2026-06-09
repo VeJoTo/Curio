@@ -1,6 +1,7 @@
 import { TopicSchema } from '@curio/shared';
 import { describe, expect, it } from 'vitest';
-import { getAllTopics, getTopic, theNorthernLights, todayTopic } from './topics';
+import { getCategory } from './categories';
+import { estimateMinutes, getAllTopics, getTopic, theNorthernLights, todayTopic } from './topics';
 
 describe('topic fixture', () => {
   it('the Northern Lights fixture parses against the real TopicSchema', () => {
@@ -57,5 +58,34 @@ describe('topic catalog', () => {
   it('catalog topics have unique slugs', () => {
     const slugs = getAllTopics().map((t) => t.slug);
     expect(new Set(slugs).size).toBe(slugs.length);
+  });
+
+  it('every catalog topic has a heroEmoji', () => {
+    for (const topic of getAllTopics()) {
+      expect(topic.heroEmoji, `${topic.slug} missing heroEmoji`).toBeTruthy();
+    }
+  });
+
+  it('every catalog topic has a categorySlug known to CATEGORIES', () => {
+    for (const topic of getAllTopics()) {
+      expect(
+        getCategory(topic.categorySlug),
+        `${topic.slug} has unknown categorySlug`,
+      ).toBeDefined();
+    }
+  });
+});
+
+describe('estimateMinutes', () => {
+  it('grows with scene and question counts', () => {
+    expect(estimateMinutes(5, 3)).toBeLessThan(estimateMinutes(12, 6));
+  });
+
+  it('is at least one minute', () => {
+    expect(estimateMinutes(0, 0)).toBe(1);
+  });
+
+  it('gives a sensible quick-read estimate (not the old bogus ~12 min)', () => {
+    expect(estimateMinutes(5, 3)).toBeLessThanOrEqual(3);
   });
 });

@@ -7,11 +7,12 @@ import { Text } from './Text';
 interface ScoreCardProps {
   score: number;
   total: number;
+  avatarKey: string;
 }
 
 function message(score: number, total: number): string {
   if (total > 0 && score === total) {
-    return 'Aurora expert! 🌟';
+    return 'Top marks! 🌟';
   }
   if (score / total >= 2 / 3) {
     return "Nice — you've got the gist! ✨";
@@ -19,7 +20,7 @@ function message(score: number, total: number): string {
   return 'Worth another look ↺';
 }
 
-export function ScoreCard({ score, total }: ScoreCardProps) {
+export function ScoreCard({ score, total, avatarKey }: ScoreCardProps) {
   const shown = useCountUp(score);
   const perfect = total > 0 && score === total;
 
@@ -27,7 +28,7 @@ export function ScoreCard({ score, total }: ScoreCardProps) {
     <View style={styles.card}>
       <Burst active={perfect} />
       <View style={styles.avatar}>
-        <Avatar avatarKey="avatar-fox" size="lg" />
+        <Avatar avatarKey={avatarKey} size="lg" />
       </View>
       <Text variant="display" color="ink">
         {shown} / {total}

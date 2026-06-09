@@ -15,3 +15,8 @@ export const CATEGORIES: DisplayCategory[] = [
   { slug: 'mind-and-brain', name: 'Mind & Brain', colorToken: 'teal', emoji: '🧠' },
   { slug: 'food-and-cooking', name: 'Food & Cooking', colorToken: 'mustard', emoji: '🍳' },
 ];
+
+/** Look up a display category by slug (undefined if none matches). */
+export function getCategory(slug: string): DisplayCategory | undefined {
+  return CATEGORIES.find((c) => c.slug === slug);
+}

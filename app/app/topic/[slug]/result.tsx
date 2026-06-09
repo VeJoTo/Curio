@@ -1,8 +1,9 @@
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { SafeAreaView, StyleSheet, View } from 'react-native';
 import { ClayButton, ScoreCard, Text, TextField } from '../../../components';
 import { Reveal } from '../../../motion';
+import { getProfile } from '../../../storage/profile';
 import { theme } from '../../../theme';
 
 export default function Result() {
@@ -14,6 +15,19 @@ export default function Result() {
     total?: string;
   }>();
   const [reflection, setReflection] = useState('');
+  const [avatarKey, setAvatarKey] = useState('avatar-fox');
+
+  useEffect(() => {
+    let active = true;
+    getProfile().then((p) => {
+      if (active && p) {
+        setAvatarKey(p.avatarKey);
+      }
+    });
+    return () => {
+      active = false;
+    };
+  }, []);
 
   const scoreNum = Number(score ?? '0');
   const totalNum = Number(total ?? '0');
@@ -22,7 +36,7 @@ export default function Result() {
     <SafeAreaView style={styles.screen}>
       <View style={styles.body}>
         <Reveal>
-          <ScoreCard score={scoreNum} total={totalNum} />
+          <ScoreCard score={scoreNum} total={totalNum} avatarKey={avatarKey} />
         </Reveal>
 
         <Reveal delay={120} style={styles.reflectWrap}>
