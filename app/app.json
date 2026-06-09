@@ -7,12 +7,20 @@
     "orientation": "portrait",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
+    "icon": "./assets/icon.png",
     "ios": {
       "supportsTablet": false,
       "bundleIdentifier": "no.canuto.curio"
     },
     "android": {
-      "package": "no.canuto.curio"
+      "package": "no.canuto.curio",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#43897D"
+      }
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
     },
     "plugins": ["expo-router", "expo-font"],
     "experiments": {
