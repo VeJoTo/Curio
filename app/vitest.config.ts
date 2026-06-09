@@ -2,9 +2,13 @@ import path from 'node:path';
 import { defineConfig } from 'vitest/config';
 
 export default defineConfig({
+  esbuild: {
+    jsx: 'automatic',
+  },
   resolve: {
     alias: {
       '@curio/shared': path.resolve(__dirname, '../shared/src/index.ts'),
+      'react-native': 'react-native-web',
     },
   },
   test: {
@@ -14,7 +18,10 @@ export default defineConfig({
       'onboarding/**/*.test.ts',
       'today/**/*.test.ts',
       'profile/**/*.test.ts',
+      'components/**/*.test.tsx',
     ],
     environment: 'node',
+    environmentMatchGlobs: [['components/**/*.test.tsx', 'jsdom']],
+    setupFiles: ['./vitest.setup.ts'],
   },
 });

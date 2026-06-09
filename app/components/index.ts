@@ -3,6 +3,8 @@ export { Avatar, AVATAR_KEYS, AVATAR_NAMES } from './Avatar';
 export { AvatarPicker } from './AvatarPicker';
 export { ClayButton } from './ClayButton';
 export { ClayCard } from './ClayCard';
+export { ErrorBoundary } from './ErrorBoundary';
+export { ErrorFallback } from './ErrorFallback';
 export { IconButton } from './IconButton';
 export { Pill } from './Pill';
 export { ProgressDots } from './ProgressDots';
