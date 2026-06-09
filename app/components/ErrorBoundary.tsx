@@ -10,6 +10,10 @@ interface ErrorBoundaryState {
   error: Error | null;
 }
 
+// A general-purpose render-error boundary. Note: this is NOT expo-router's
+// `ErrorBoundary` route export — it's a plain component we wire in manually
+// (see app/_layout.tsx), so naming it `ErrorBoundary` does not trigger any
+// framework auto-wiring.
 export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
   state: ErrorBoundaryState = { hasError: false, error: null };
 
