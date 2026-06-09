@@ -16,7 +16,7 @@
       "package": "no.canuto.curio",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#43897D"
+        "backgroundColor": "#AED6C6"
       }
     },
     "web": {
