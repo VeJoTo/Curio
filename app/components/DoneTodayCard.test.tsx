@@ -18,4 +18,9 @@ describe('DoneTodayCard', () => {
     expect(screen.getByText('Day 1 — nice start')).toBeTruthy();
     expect(screen.queryByText('🔥 1-day streak')).toBeNull();
   });
+
+  it('treats a 0 streak as the gentle first-day message (defensive <= 1)', () => {
+    render(<DoneTodayCard streak={0} onReadAgain={() => {}} />);
+    expect(screen.getByText('Day 1 — nice start')).toBeTruthy();
+  });
 });
