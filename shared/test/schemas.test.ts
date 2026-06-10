@@ -373,4 +373,12 @@ describe('DayEntrySchema', () => {
   it('rejects a malformed date', () => {
     expect(DayEntrySchema.safeParse({ ...valid, date: '6/10/2026' }).success).toBe(false);
   });
+
+  it('rejects a score greater than total', () => {
+    expect(DayEntrySchema.safeParse({ ...valid, score: 6, total: 5 }).success).toBe(false);
+  });
+
+  it('rejects a completedAt that is not an ISO instant', () => {
+    expect(DayEntrySchema.safeParse({ ...valid, completedAt: '2026-06-10' }).success).toBe(false);
+  });
 });
