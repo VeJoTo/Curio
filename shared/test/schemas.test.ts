@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { CategorySchema } from '../src/schemas/category.js';
 import { type Device, DeviceSchema } from '../src/schemas/device.js';
+import { type DayEntry, DayEntrySchema } from '../src/schemas/journal.js';
 import { type Profile, ProfileSchema } from '../src/schemas/profile.js';
 import { type Topic, TopicSchema } from '../src/schemas/topic.js';
 
@@ -344,5 +345,40 @@ describe('DeviceSchema', () => {
   it('rejects a device row with missing prefs', () => {
     const { prefs: _, ...withoutPrefs } = validDevice;
     expect(DeviceSchema.safeParse(withoutPrefs).success).toBe(false);
+  });
+});
+
+describe('DayEntrySchema', () => {
+  const valid: DayEntry = {
+    date: '2026-06-10',
+    slug: 'the-northern-lights',
+    score: 3,
+    total: 5,
+    reflection: 'Auroras are charged particles, not reflected light.',
+    completedAt: '2026-06-10T20:00:00.000Z',
+  };
+
+  it('accepts a valid entry', () => {
+    expect(DayEntrySchema.parse(valid)).toEqual(valid);
+  });
+
+  it('allows an empty reflection', () => {
+    expect(DayEntrySchema.parse({ ...valid, reflection: '' }).reflection).toBe('');
+  });
+
+  it('rejects a negative score', () => {
+    expect(DayEntrySchema.safeParse({ ...valid, score: -1 }).success).toBe(false);
+  });
+
+  it('rejects a malformed date', () => {
+    expect(DayEntrySchema.safeParse({ ...valid, date: '6/10/2026' }).success).toBe(false);
+  });
+
+  it('rejects a score greater than total', () => {
+    expect(DayEntrySchema.safeParse({ ...valid, score: 6, total: 5 }).success).toBe(false);
+  });
+
+  it('rejects a completedAt that is not an ISO instant', () => {
+    expect(DayEntrySchema.safeParse({ ...valid, completedAt: '2026-06-10' }).success).toBe(false);
   });
 });
