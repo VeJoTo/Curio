@@ -2,7 +2,15 @@ import type { Profile } from '@curio/shared';
 import * as Haptics from 'expo-haptics';
 import { Redirect, useRouter } from 'expo-router';
 import { useEffect, useState } from 'react';
-import { ActivityIndicator, Alert, SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
+import {
+  ActivityIndicator,
+  Alert,
+  Platform,
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  View,
+} from 'react-native';
 import {
   AvatarPicker,
   ClayButton,
@@ -18,6 +26,8 @@ import { AGE_BANDS } from '../data/ageBands';
 import { availableInterestCategories } from '../data/interests';
 import { useAsyncAction } from '../hooks/useAsyncAction';
 import { Reveal } from '../motion';
+import { type NotifPermission, notifControl } from '../notifications/permission';
+import { getOsPermission, openSystemSettings, requestOsPermission } from '../notifications/service';
 import {
   MAX_INTERESTS,
   type ProfileDraft,
@@ -46,16 +56,27 @@ export default function ProfileScreen() {
 
   useEffect(() => {
     let mounted = true;
-    getProfile().then((p) => {
+    getProfile().then(async (p) => {
       if (!mounted) {
         return;
       }
-      if (p) {
-        setLoad({ status: 'ready', profile: p, original: draftFromProfile(p) });
-        setDraft(draftFromProfile(p));
-      } else {
+      if (!p) {
         setLoad({ status: 'missing' });
+        return;
       }
+      // Reconcile the stored notification permission with the real OS state, so a
+      // change made in system Settings is reflected (and persisted) on open.
+      let profile = p;
+      const real = await getOsPermission();
+      if (!mounted) {
+        return;
+      }
+      if (real !== p.notifPermission) {
+        profile = { ...p, notifPermission: real };
+        saveProfile(profile).catch((err) => console.error('notif reconcile save failed', err));
+      }
+      setLoad({ status: 'ready', profile, original: draftFromProfile(profile) });
+      setDraft(draftFromProfile(profile));
     });
     return () => {
       mounted = false;
@@ -99,6 +120,28 @@ export default function ProfileScreen() {
     router.back();
   };
   const save = useAsyncAction(onSave);
+
+  const control = notifControl(profile.notifPermission);
+  const applyPermission = async (perm: NotifPermission) => {
+    setLoad((prev) =>
+      prev.status === 'ready'
+        ? { ...prev, profile: { ...prev.profile, notifPermission: perm } }
+        : prev,
+    );
+    try {
+      await saveProfile({ ...profile, notifPermission: perm });
+    } catch (err) {
+      console.error('notif permission save failed', err);
+    }
+  };
+  const onNotif = async () => {
+    if (control.action === 'request') {
+      await applyPermission(await requestOsPermission());
+    } else {
+      openSystemSettings();
+    }
+  };
+  const notifAction = useAsyncAction(onNotif);
 
   const onBack = () => {
     if (isDirty(draft, original)) {
@@ -244,9 +287,20 @@ export default function ProfileScreen() {
             style={styles.save}
           />
 
-          <Text variant="meta" color="inkSoft" style={styles.notif}>
-            Notifications: {profile.notifPermission}
-          </Text>
+          {Platform.OS !== 'web' ? (
+            <View style={styles.notif}>
+              <Text variant="meta" color="inkSoft" style={styles.notifLabel}>
+                Notifications: {control.statusLabel}
+              </Text>
+              <ClayButton
+                label={control.actionLabel}
+                variant="ghost"
+                loading={notifAction.pending}
+                onPress={notifAction.run}
+                style={styles.notifBtn}
+              />
+            </View>
+          ) : null}
           <ClayButton
             label="Start over"
             variant="ghost"
@@ -283,6 +337,8 @@ const styles = StyleSheet.create({
   row: { flexDirection: 'row', flexWrap: 'wrap', gap: theme.space.xs },
   error: { marginTop: theme.space.md },
   save: { alignSelf: 'stretch', marginTop: theme.space.lg },
-  notif: { marginTop: theme.space.lg, textAlign: 'center' },
+  notif: { marginTop: theme.space.lg, alignItems: 'center', gap: theme.space.xs },
+  notifLabel: { textAlign: 'center' },
+  notifBtn: { alignSelf: 'center' },
   startOver: { alignSelf: 'center', marginTop: theme.space.sm },
 });

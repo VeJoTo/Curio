@@ -18,6 +18,7 @@ export default defineConfig({
       'onboarding/**/*.test.ts',
       'onboarding/**/*.test.tsx',
       'today/**/*.test.ts',
+      'notifications/**/*.test.ts',
       'profile/**/*.test.ts',
       'components/**/*.test.tsx',
       'hooks/**/*.test.tsx',
