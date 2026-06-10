@@ -1,4 +1,4 @@
-import type { Profile } from '@curio/shared';
+import type { DayEntry, Profile } from '@curio/shared';
 import { Redirect, useFocusEffect, useRouter } from 'expo-router';
 import { useCallback, useState } from 'react';
 import {
@@ -9,13 +9,15 @@ import {
   StyleSheet,
   View,
 } from 'react-native';
-import { Avatar, Text, TopicHeroCard } from '../components';
+import { Avatar, DoneTodayCard, Text, TopicHeroCard } from '../components';
 import type { Depth } from '../components/TopicHeroCard';
 import { todayTopic } from '../data/topics';
 import { Reveal } from '../motion';
+import { getJournal } from '../storage/journal';
 import { getProfile } from '../storage/profile';
 import { theme } from '../theme';
 import { greetingLine } from '../today/greeting';
+import { computeStreak, isCompletedToday } from '../today/streak';
 
 type GateState = 'loading' | 'onboard' | 'ready';
 
@@ -23,15 +25,17 @@ export default function Today() {
   const router = useRouter();
   const [gate, setGate] = useState<GateState>('loading');
   const [profile, setProfile] = useState<Profile | null>(null);
+  const [journal, setJournal] = useState<Record<string, DayEntry>>({});
 
   // Re-read the profile every time the screen regains focus (e.g. returning from
   // the profile editor) so interest edits change today's topic without a reload.
   useFocusEffect(
     useCallback(() => {
       let active = true;
-      getProfile().then((p) => {
+      Promise.all([getProfile(), getJournal()]).then(([p, j]) => {
         if (active) {
           setProfile(p);
+          setJournal(j);
           setGate(p ? 'ready' : 'onboard');
         }
       });
@@ -53,6 +57,17 @@ export default function Today() {
   }
 
   const topic = todayTopic(profile ?? undefined);
+
+  const now = new Date();
+  const done = isCompletedToday(journal, now);
+  const streak = computeStreak(journal, now);
+
+  const onReadAgain = () => {
+    router.push({
+      pathname: '/topic/[slug]',
+      params: { slug: topic.slug, depth: profile?.defaultDepth ?? 'quick' },
+    });
+  };
 
   const onExplore = (depth: Depth) => {
     router.push({ pathname: '/topic/[slug]', params: { slug: topic.slug, depth } });
@@ -85,7 +100,15 @@ export default function Today() {
       </View>
       <ScrollView contentContainerStyle={styles.body}>
         <Reveal>
-          <TopicHeroCard topic={topic} onExplore={onExplore} initialDepth={profile?.defaultDepth} />
+          {done ? (
+            <DoneTodayCard streak={streak} onReadAgain={onReadAgain} />
+          ) : (
+            <TopicHeroCard
+              topic={topic}
+              onExplore={onExplore}
+              initialDepth={profile?.defaultDepth}
+            />
+          )}
         </Reveal>
       </ScrollView>
     </SafeAreaView>
