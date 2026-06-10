@@ -14,6 +14,7 @@ export function DepthStep({ draft, patch, next }: StepProps) {
         Your default each day — you can switch any time.
       </Text>
       <SegmentedToggle
+        accessibilityLabel="Default reading depth"
         options={['Quick', 'Deep']}
         value={value}
         onChange={(v) => patch({ defaultDepth: v === 'Deep' ? 'deep' : 'quick' })}

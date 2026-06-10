@@ -79,6 +79,7 @@ export function TopicHeroCard({ topic, onExplore, initialDepth = 'quick' }: Topi
       </Text>
       <View style={styles.toggle}>
         <SegmentedToggle
+          accessibilityLabel="Reading depth"
           options={['Quick', 'Deep']}
           value={depth === 'quick' ? 'Quick' : 'Deep'}
           onChange={(v) => setDepth(v === 'Quick' ? 'quick' : 'deep')}

@@ -30,7 +30,12 @@ export function ScoreCard({ score, total, avatarKey }: ScoreCardProps) {
       <View style={styles.avatar}>
         <Avatar avatarKey={avatarKey} size="lg" />
       </View>
-      <Text variant="display" color="ink">
+      <Text
+        variant="display"
+        color="ink"
+        accessibilityLiveRegion="polite"
+        accessibilityLabel={`You scored ${score} out of ${total}. ${message(score, total)}`}
+      >
         {shown} / {total}
       </Text>
       <Text variant="bodyStrong" color="ink" style={styles.msg}>

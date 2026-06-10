@@ -30,8 +30,19 @@ const MARK: Record<AnswerState, string> = {
   dimmed: '',
 };
 
+// Correctness conveyed visually by colour + glyph; spell it out for assistive
+// tech so the announced label carries the same meaning.
+const HINT: Record<AnswerState, string> = {
+  idle: '',
+  correct: ', correct',
+  wrong: ', incorrect',
+  mutedCorrect: ', correct answer',
+  dimmed: '',
+};
+
 export function AnswerChoice({ label, state, onPress, disabled = false }: AnswerChoiceProps) {
   const reduced = useReducedMotion();
+  const picked = state === 'correct' || state === 'wrong';
 
   // Pop on correct, shake on wrong (transform-only; off under reduced motion).
   const animate =
@@ -46,7 +57,8 @@ export function AnswerChoice({ label, state, onPress, disabled = false }: Answer
       onPress={onPress}
       disabled={disabled}
       accessibilityRole="button"
-      accessibilityLabel={label}
+      accessibilityLabel={`${label}${HINT[state]}`}
+      accessibilityState={{ disabled, selected: picked }}
     >
       <MotiView
         style={[styles.row, { backgroundColor: BG[state], opacity: state === 'dimmed' ? 0.5 : 1 }]}

@@ -108,7 +108,7 @@ export default function Quiz() {
         {answered ? (
           <Reveal style={styles.explWrap}>
             <View style={styles.expl}>
-              <Text variant="body" color="ink">
+              <Text variant="body" color="ink" accessibilityLiveRegion="polite">
                 {q.explanation}
               </Text>
             </View>

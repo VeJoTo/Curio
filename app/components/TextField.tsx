@@ -40,7 +40,7 @@ export function TextField({
         style={[styles.input, focused ? styles.focused : null, error ? styles.errored : null]}
       />
       {error ? (
-        <Text variant="meta" color="coral">
+        <Text variant="meta" color="coral" accessibilityLiveRegion="polite">
           {error}
         </Text>
       ) : null}
