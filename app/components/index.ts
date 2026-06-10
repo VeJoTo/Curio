@@ -18,3 +18,4 @@ export { Text } from './Text';
 export { TextField } from './TextField';
 export { TimePicker } from './TimePicker';
 export { TopicHeroCard } from './TopicHeroCard';
+export { Wordmark } from './Wordmark';

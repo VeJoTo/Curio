@@ -59,6 +59,12 @@ describe('token completeness', () => {
     }
   });
 
+  it('exposes brand mark colors as valid hex', () => {
+    for (const token of ['teal', 'green'] as const) {
+      expect(theme.brand[token]).toMatch(/^#[0-9A-Fa-f]{6}$/);
+    }
+  });
+
   it('exposes the core palette roles', () => {
     for (const role of [
       'cream',
