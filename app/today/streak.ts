@@ -3,7 +3,10 @@ import { dayKey } from './selectTopic';
 
 type Journal = Record<string, DayEntry>;
 
-/** "YYYY-MM-DD" one calendar day earlier. Local components, so DST-safe. */
+/**
+ * "YYYY-MM-DD" one calendar day earlier. `key` is always a dayKey()-produced
+ * string, so the split parses cleanly. Local components, so DST-safe.
+ */
 export function previousDayKey(key: string): string {
   const [y, m, d] = key.split('-').map(Number);
   return dayKey(new Date(y, m - 1, d - 1));
@@ -32,6 +35,9 @@ export function computeStreak(journal: Journal, today: Date): number {
     }
   }
 
+  // Terminates: `cursor` strictly decreases by one day each step and every
+  // counted day must exist in the finite journal, so it stops at the first gap
+  // (bounded by the number of stored entries).
   let count = 0;
   let cursor = anchor;
   while (journal[cursor]) {

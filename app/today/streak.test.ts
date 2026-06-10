@@ -33,6 +33,10 @@ describe('computeStreak', () => {
     expect(computeStreak({}, today)).toBe(0);
   });
 
+  it('is 1 on the first day of use (today done, no prior history)', () => {
+    expect(computeStreak(journalOf('2026-06-11'), today)).toBe(1);
+  });
+
   it('counts today plus an unbroken prior run', () => {
     expect(computeStreak(journalOf('2026-06-11', '2026-06-10', '2026-06-09', '2026-06-08'), today)).toBe(4);
   });
