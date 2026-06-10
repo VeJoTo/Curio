@@ -34,9 +34,13 @@ export function TopicHeroCard({ topic, onExplore, initialDepth = 'quick' }: Topi
   const badgeLabel = category ? `${category.emoji} ${category.name}` : topic.categorySlug;
   const heroGlyph = topic.heroEmoji ?? category?.emoji ?? '✨';
 
+  // `reduced === false` (not the falsy `!reduced`) so the GIF mounts only once
+  // we positively know motion is allowed — a reduced-motion user, or the
+  // not-yet-known (`null`) first frame on native, never mounts expo-image or
+  // triggers the GIF fetch.
   const reduced = useReducedMotion();
   const [gifError, setGifError] = useState(false);
-  const showGif = !reduced && !gifError && Boolean(topic.heroGifId);
+  const showGif = reduced === false && !gifError && Boolean(topic.heroGifId);
 
   // Reset the error latch when the topic (and thus its GIF) changes, so a failed
   // GIF on one topic doesn't permanently suppress the next topic's GIF on this card.
