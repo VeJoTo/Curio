@@ -2,18 +2,9 @@ import * as Notifications from 'expo-notifications';
 import { Platform, StyleSheet, View } from 'react-native';
 import { ClayButton, Text } from '../../components';
 import { useAsyncAction } from '../../hooks/useAsyncAction';
+import { toPermission } from '../../notifications/permission';
 import { theme } from '../../theme';
-import type { NotifPermission, StepProps } from '../types';
-
-function toPermission(status: string): NotifPermission {
-  if (status === 'granted') {
-    return 'granted';
-  }
-  if (status === 'denied') {
-    return 'denied';
-  }
-  return 'undetermined';
-}
+import type { StepProps } from '../types';
 
 export function NotificationsStep({ patch, next }: StepProps) {
   const allow = async () => {
