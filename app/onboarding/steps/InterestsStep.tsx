@@ -25,6 +25,7 @@ export function InterestsStep({ draft, patch, next }: StepProps) {
       </Text>
       <Text variant="meta" color="inkSoft">
         Pick {MIN}–{MAX} · {selected.length} chosen
+        {selected.length >= MAX ? ' · max reached' : ''}
       </Text>
       <View style={styles.row}>
         {availableInterestCategories(selected).map((c) => (

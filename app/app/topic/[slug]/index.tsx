@@ -71,11 +71,10 @@ export default function Story() {
       </GestureDetector>
 
       <View style={styles.nav}>
-        {index > 0 ? (
-          <ClayButton label="← Back" variant="ghost" onPress={() => go(index - 1)} />
-        ) : (
-          <View />
-        )}
+        {/* Back-a-scene lives only in the header ← "Previous scene"; the bottom
+            row is just the forward action so there aren't two controls for the
+            same action. */}
+        <View />
         {isLast ? (
           <ClayButton label="Take the quiz →" variant="coral" onPress={toQuiz} />
         ) : (

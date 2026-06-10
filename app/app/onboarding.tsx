@@ -73,7 +73,7 @@ export default function Onboarding() {
           {state.step > 0 ? (
             <IconButton
               icon="←"
-              accessibilityLabel="Back"
+              accessibilityLabel="Go back"
               onPress={() => dispatch({ type: 'back' })}
             />
           ) : null}
