@@ -1,5 +1,5 @@
 import { StyleSheet, View } from 'react-native';
-import { Text, TimePicker } from '../../components';
+import { ClayButton, Text, TimePicker } from '../../components';
 import { theme } from '../../theme';
 import type { StepProps } from '../types';
 
@@ -9,12 +9,13 @@ export function TimeStep({ draft, patch, next }: StepProps) {
       <Text variant="title" color="ink">
         When should we nudge you?
       </Text>
-      <TimePicker
-        value={draft.dailyTime}
-        onChange={(t) => {
-          patch({ dailyTime: t });
-          next();
-        }}
+      <TimePicker value={draft.dailyTime} onChange={(t) => patch({ dailyTime: t })} />
+      <ClayButton
+        label="Next →"
+        variant="coral"
+        disabled={!draft.dailyTime}
+        onPress={next}
+        style={styles.cta}
       />
     </View>
   );
@@ -22,4 +23,5 @@ export function TimeStep({ draft, patch, next }: StepProps) {
 
 const styles = StyleSheet.create({
   wrap: { gap: theme.space.sm },
+  cta: { alignSelf: 'stretch', marginTop: theme.space.md },
 });

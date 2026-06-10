@@ -1,5 +1,5 @@
 import { StyleSheet, View } from 'react-native';
-import { Pill, Text } from '../../components';
+import { ClayButton, Pill, Text } from '../../components';
 import { AGE_BANDS } from '../../data/ageBands';
 import { theme } from '../../theme';
 import type { StepProps } from '../types';
@@ -19,13 +19,17 @@ export function AgeStep({ draft, patch, next }: StepProps) {
             key={b.value}
             label={b.label}
             selected={draft.ageBand === b.value}
-            onPress={() => {
-              patch({ ageBand: b.value });
-              next();
-            }}
+            onPress={() => patch({ ageBand: b.value })}
           />
         ))}
       </View>
+      <ClayButton
+        label="Next →"
+        variant="coral"
+        disabled={!draft.ageBand}
+        onPress={next}
+        style={styles.cta}
+      />
     </View>
   );
 }
@@ -33,4 +37,5 @@ export function AgeStep({ draft, patch, next }: StepProps) {
 const styles = StyleSheet.create({
   wrap: { gap: theme.space.sm },
   row: { flexDirection: 'row', flexWrap: 'wrap', gap: theme.space.xs, marginTop: theme.space.sm },
+  cta: { alignSelf: 'stretch', marginTop: theme.space.md },
 });
