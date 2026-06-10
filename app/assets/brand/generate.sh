@@ -24,4 +24,14 @@ magick -size 1024x1024 xc:none "$tmp/c480.png" -gravity center -composite "$out/
 # Wordmark: native teal, transparent, 3x (~618px wide).
 rsvg-convert -w 618 "$here/curio-logo.svg" -o "$out/curio-wordmark.png"
 
-echo "Wrote icon.png, adaptive-icon.png, favicon.png, curio-wordmark.png to $out"
+# Splash image: the deep-teal "c" mark stacked above the wordmark, on transparent.
+# expo-splash-screen paints the mint background behind it (see app.json) and sizes
+# it via imageWidth, so we just need a clean transparent PNG with the two centered.
+rsvg-convert -w 300 "$here/curio-app-icon.svg" -o "$tmp/splash-c.png"
+rsvg-convert -w 420 "$here/curio-logo.svg" -o "$tmp/splash-word.png"
+magick -size 1x72 xc:none "$tmp/splash-gap.png"  # vertical breathing room between the two
+# -append concatenates vertically; -gravity center keeps the narrower mark centered.
+magick "$tmp/splash-c.png" "$tmp/splash-gap.png" "$tmp/splash-word.png" \
+  -background none -gravity center -append "$out/splash-icon.png"
+
+echo "Wrote icon.png, adaptive-icon.png, favicon.png, curio-wordmark.png, splash-icon.png to $out"

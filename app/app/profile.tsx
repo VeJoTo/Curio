@@ -21,6 +21,7 @@ import {
   Text,
   TextField,
   TimePicker,
+  Wordmark,
 } from '../components';
 import { AGE_BANDS } from '../data/ageBands';
 import { availableInterestCategories } from '../data/interests';
@@ -315,6 +316,9 @@ export default function ProfileScreen() {
             </View>
           ) : null}
         </Reveal>
+        <View style={styles.brandFooter}>
+          <Wordmark width={96} />
+        </View>
       </ScrollView>
     </SafeAreaView>
   );
@@ -332,6 +336,12 @@ const styles = StyleSheet.create({
   },
   spacer: { width: 46 },
   body: { padding: theme.space.lg },
+  brandFooter: {
+    alignItems: 'center',
+    opacity: 0.6,
+    paddingTop: theme.space.xl,
+    paddingBottom: theme.space.lg,
+  },
   card: { marginTop: theme.space.md },
   label: { marginBottom: theme.space.sm },
   row: { flexDirection: 'row', flexWrap: 'wrap', gap: theme.space.xs },

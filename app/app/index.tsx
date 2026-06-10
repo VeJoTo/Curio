@@ -9,7 +9,7 @@ import {
   StyleSheet,
   View,
 } from 'react-native';
-import { Avatar, DoneTodayCard, Text, TopicHeroCard } from '../components';
+import { Avatar, DoneTodayCard, Text, TopicHeroCard, Wordmark } from '../components';
 import type { Depth } from '../components/TopicHeroCard';
 import { todayTopic } from '../data/topics';
 import { Reveal } from '../motion';
@@ -79,9 +79,7 @@ export default function Today() {
     <SafeAreaView style={styles.screen}>
       <View style={styles.header}>
         <View style={styles.headerText}>
-          <Text variant="meta" color="inkSoft">
-            Today
-          </Text>
+          <Wordmark width={84} />
           {greeting ? (
             <Text variant="title" color="ink">
               {greeting}
@@ -118,7 +116,7 @@ export default function Today() {
 const styles = StyleSheet.create({
   screen: { flex: 1, backgroundColor: theme.color.cream },
   center: { alignItems: 'center', justifyContent: 'center' },
-  headerText: { flex: 1 },
+  headerText: { flex: 1, gap: theme.space.xxs },
   header: {
     flexDirection: 'row',
     alignItems: 'center',

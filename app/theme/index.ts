@@ -1,8 +1,9 @@
-import { borderWidth, categoryColor, color, motion, radius, shadow, space } from './tokens';
+import { borderWidth, brand, categoryColor, color, motion, radius, shadow, space } from './tokens';
 import { fontFamily, typeScale } from './typography';
 
 export const theme = {
   color,
+  brand,
   categoryColor,
   space,
   radius,

@@ -14,6 +14,14 @@ export const color = {
   surface: '#FFFCF5',
 } as const;
 
+// Brand mark colors — the deep teal "c" and dark green from the logo/icon.
+// Kept separate from the playful Clay `color` palette above: these dress the
+// brand mark itself (splash, wordmark tint), not the in-app category UI.
+export const brand = {
+  teal: '#43897D',
+  green: '#103F37',
+} as const;
+
 // Category tokens mirror the `ColorToken` enum in @curio/shared.
 export const categoryColor = {
   rose: color.rose,
