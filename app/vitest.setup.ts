@@ -16,6 +16,18 @@ vi.mock('react-native-reanimated', async () => {
   };
 });
 
+// Moti (used by motion/Burst etc.) wraps react-native-reanimated; render its
+// views as plain Views under jsdom so step/screen components mount in tests.
+vi.mock('moti', async () => {
+  const React = await import('react');
+  const RNW = (await import('react-native-web')) as any;
+  const View = RNW.View ?? RNW.default?.View;
+  return {
+    MotiView: (props: any) => React.createElement(View, props),
+    MotiText: (props: any) => React.createElement(View, props),
+  };
+});
+
 // ClayButton -> usePressNudge imports expo-haptics, which loads
 // expo-modules-core's NativeModule and crashes under jsdom (no native runtime).
 // Mock the API surface used so button components render in tests.
@@ -25,6 +37,15 @@ vi.mock('expo-haptics', () => ({
   notificationAsync: () => Promise.resolve(),
   NotificationFeedbackType: { Success: 'success', Warning: 'warning', Error: 'error' },
 }));
+
+// expo-image ships untranspiled native source that vite's SSR parser can't
+// read; stub it so barrel imports (TopicHeroCard) load in tests.
+vi.mock('expo-image', async () => {
+  const React = await import('react');
+  const RNW = (await import('react-native-web')) as any;
+  const View = RNW.View ?? RNW.default?.View;
+  return { Image: (props: any) => React.createElement(View, props) };
+});
 
 // jsdom has no matchMedia; react-native-web's AccessibilityInfo needs it.
 if (typeof window !== 'undefined' && !window.matchMedia) {

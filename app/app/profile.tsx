@@ -42,6 +42,7 @@ export default function ProfileScreen() {
   const [draft, setDraft] = useState<ProfileDraft | null>(null);
   const [saveError, setSaveError] = useState(false);
   const [saved, setSaved] = useState(false);
+  const [resetError, setResetError] = useState(false);
 
   useEffect(() => {
     let mounted = true;
@@ -106,9 +107,13 @@ export default function ProfileScreen() {
         text: 'Start over',
         style: 'destructive',
         onPress: () => {
+          setResetError(false);
           clearProfile()
             .then(() => router.replace('/onboarding'))
-            .catch((err) => console.error('clearProfile failed', err));
+            .catch((err) => {
+              console.error('clearProfile failed', err);
+              setResetError(true);
+            });
         },
       },
     ]);
@@ -235,6 +240,13 @@ export default function ProfileScreen() {
             onPress={onStartOver}
             style={styles.startOver}
           />
+          {resetError ? (
+            <View accessibilityLiveRegion="polite" style={styles.error}>
+              <Text variant="meta" color="coral">
+                Couldn't reset. Please try again.
+              </Text>
+            </View>
+          ) : null}
         </Reveal>
       </ScrollView>
     </SafeAreaView>

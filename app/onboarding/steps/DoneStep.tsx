@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Avatar, ClayButton, Text } from '../../components';
 import { useAsyncAction } from '../../hooks/useAsyncAction';
@@ -7,7 +8,16 @@ import type { StepProps } from '../types';
 
 export function DoneStep({ draft, finish }: StepProps) {
   const name = draft.name?.trim();
-  const action = useAsyncAction(finish);
+  const [failed, setFailed] = useState(false);
+  const action = useAsyncAction(async () => {
+    setFailed(false);
+    try {
+      await finish();
+    } catch (err) {
+      console.error('onboarding finish failed', err);
+      setFailed(true);
+    }
+  });
   return (
     <View style={styles.wrap}>
       <Burst active />
@@ -20,8 +30,15 @@ export function DoneStep({ draft, finish }: StepProps) {
       <Text variant="body" color="inkSoft">
         Your first topic is waiting.
       </Text>
+      {failed ? (
+        <View accessibilityLiveRegion="polite" style={styles.error}>
+          <Text variant="meta" color="coral">
+            Couldn't finish setting up. Please try again.
+          </Text>
+        </View>
+      ) : null}
       <ClayButton
-        label="Start exploring →"
+        label={failed ? 'Try again →' : 'Start exploring →'}
         variant="coral"
         loading={action.pending}
         onPress={action.run}
@@ -34,5 +51,6 @@ export function DoneStep({ draft, finish }: StepProps) {
 const styles = StyleSheet.create({
   wrap: { gap: theme.space.sm, alignItems: 'center' },
   avatar: { marginBottom: theme.space.sm },
+  error: { alignItems: 'center' },
   cta: { alignSelf: 'stretch', marginTop: theme.space.md },
 });
