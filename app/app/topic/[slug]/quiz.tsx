@@ -2,7 +2,14 @@ import type { Question } from '@curio/shared';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useState } from 'react';
 import { SafeAreaView, StyleSheet, View } from 'react-native';
-import { AnswerChoice, ClayButton, IconButton, ProgressDots, Text } from '../../../components';
+import {
+  AnswerChoice,
+  ClayButton,
+  IconButton,
+  NotFound,
+  ProgressDots,
+  Text,
+} from '../../../components';
 import type { AnswerState } from '../../../components/AnswerChoice';
 import { getTopic } from '../../../data/topics';
 import { Reveal } from '../../../motion';
@@ -20,9 +27,11 @@ export default function Quiz() {
 
   if (!topic) {
     return (
-      <SafeAreaView style={styles.screen}>
-        <Text variant="body">Topic not found.</Text>
-      </SafeAreaView>
+      <NotFound
+        title="Topic not found"
+        message="We couldn't find that quiz. Let's head back to today's topic."
+        onGoHome={() => router.dismissAll()}
+      />
     );
   }
 

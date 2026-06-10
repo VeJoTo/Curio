@@ -6,6 +6,7 @@ export { ClayCard } from './ClayCard';
 export { ErrorBoundary } from './ErrorBoundary';
 export { ErrorFallback } from './ErrorFallback';
 export { IconButton } from './IconButton';
+export { NotFound } from './NotFound';
 export { Pill } from './Pill';
 export { ProgressDots } from './ProgressDots';
 export { SceneFrame } from './SceneFrame';
