@@ -21,6 +21,7 @@ export default function Result() {
   const [avatarKey, setAvatarKey] = useState('avatar-fox');
 
   const [saveError, setSaveError] = useState(false);
+  const [todayKey] = useState(() => dayKey(new Date()));
 
   useEffect(() => {
     let active = true;
@@ -29,7 +30,7 @@ export default function Result() {
         setAvatarKey(p.avatarKey);
       }
     });
-    getDay(dayKey(new Date())).then((existing) => {
+    getDay(todayKey).then((existing) => {
       if (active && existing) {
         setReflection(existing.reflection);
       }
@@ -37,16 +38,16 @@ export default function Result() {
     return () => {
       active = false;
     };
-  }, []);
+  }, [todayKey]);
 
   const scoreNum = Number(score ?? '0');
   const totalNum = Number(total ?? '0');
 
-  const finish = async () => {
+  const onDone = async () => {
     setSaveError(false);
     try {
       await recordDay({
-        date: dayKey(new Date()),
+        date: todayKey,
         slug: slug ?? '',
         score: scoreNum,
         total: totalNum,
@@ -60,7 +61,7 @@ export default function Result() {
     }
     router.dismissAll();
   };
-  const done = useAsyncAction(finish);
+  const done = useAsyncAction(onDone);
 
   return (
     <SafeAreaView style={styles.screen}>
