@@ -3,7 +3,14 @@ import { describe, expect, it } from 'vitest';
 import { computeStreak, isCompletedToday, previousDayKey } from './streak';
 
 function entry(date: string): DayEntry {
-  return { date, slug: 't', score: 1, total: 1, reflection: '', completedAt: `${date}T08:00:00.000Z` };
+  return {
+    date,
+    slug: 't',
+    score: 1,
+    total: 1,
+    reflection: '',
+    completedAt: `${date}T08:00:00.000Z`,
+  };
 }
 function journalOf(...dates: string[]): Record<string, DayEntry> {
   return Object.fromEntries(dates.map((d) => [d, entry(d)]));
@@ -38,7 +45,9 @@ describe('computeStreak', () => {
   });
 
   it('counts today plus an unbroken prior run', () => {
-    expect(computeStreak(journalOf('2026-06-11', '2026-06-10', '2026-06-09', '2026-06-08'), today)).toBe(4);
+    expect(
+      computeStreak(journalOf('2026-06-11', '2026-06-10', '2026-06-09', '2026-06-08'), today),
+    ).toBe(4);
   });
 
   it('stays alive on yesterday (grace until end of day)', () => {
