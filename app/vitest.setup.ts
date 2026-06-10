@@ -17,8 +17,7 @@ vi.mock('react-native-reanimated', async () => {
 });
 
 // Moti (used by motion/Burst etc.) wraps react-native-reanimated; render its
-// views as plain Views under jsdom so components that pull in the motion
-// barrel mount in tests.
+// views as plain Views under jsdom so step/screen components mount in tests.
 vi.mock('moti', async () => {
   const React = await import('react');
   const RNW = (await import('react-native-web')) as any;
